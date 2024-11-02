@@ -1,0 +1,43 @@
+[run]
+# Specify the source directories you want to measure coverage for.
+source = shapeteam
+
+# Omit the directories you don't want to include in the coverage report.
+omit =
+    */migrations/*
+    */tests/*
+    */admin.py
+    */apps.py
+    */wsgi.py
+    */asgi.py
+    manage.py
+    */__init__.py
+    */settings.py
+
+[report]
+# Include the source code for the report.
+show_missing = True
+skip_covered = True
+exclude_lines =
+    # Don't count "if __name__ == '__main__':" as uncovered.
+    if __name__ == '__main__':
+
+    # Ignore coverage for certain exceptions and imports.
+    pragma: no cover
+
+    # Ignore debug breakpoints
+    ipdb.set_trace()
+
+    # Ignore pass statements (commonly used in method stubs).
+    pass
+
+    # Ignore when returning NotImplemented (abstract base methods).
+    return NotImplemented
+
+[html]
+# Specify the output directory for the HTML coverage report.
+directory = htmlcov
+
+[xml]
+# Specify the output for the XML report.
+output = coverage.xml

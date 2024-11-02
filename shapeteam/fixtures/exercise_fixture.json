@@ -1,0 +1,90 @@
+[{
+    "model": "shapeteam.exercise",
+    "pk": 1,
+    "fields": {
+        "name_exe": 10,
+        "default_reps": 11,
+        "default_sets": 3
+    }
+},
+{
+    "model": "shapeteam.exercise",
+    "pk": 2,
+    "fields": {
+        "name_exe": 9,
+        "default_reps": 15,
+        "default_sets": 4
+    }
+},
+{
+    "model": "shapeteam.exercise",
+    "pk": 3,
+    "fields": {
+        "name_exe": 8,
+        "default_reps": 20,
+        "default_sets": 5
+    }
+},
+{
+    "model": "shapeteam.exercise",
+    "pk": 4,
+    "fields": {
+        "name_exe": 7,
+        "default_reps": 25,
+        "default_sets": 6
+    }
+},
+{
+    "model": "shapeteam.exercise",
+    "pk": 5,
+    "fields": {
+        "name_exe": 6,
+        "default_reps": 30,
+        "default_sets": 7
+    }
+},
+{
+    "model": "shapeteam.exercise",
+    "pk": 6,
+    "fields": {
+        "name_exe": 5,
+        "default_reps": 35,
+        "default_sets": 8
+    }
+},
+{
+    "model": "shapeteam.exercise",
+    "pk": 7,
+    "fields": {
+        "name_exe": 4,
+        "default_reps": 40,
+        "default_sets": 9
+    }
+},
+{
+    "model": "shapeteam.exercise",
+    "pk": 8,
+    "fields": {
+        "name_exe": 3,
+        "default_reps": 45,
+        "default_sets": 10
+    }
+},
+{
+    "model": "shapeteam.exercise",
+    "pk": 9,
+    "fields": {
+        "name_exe": 2,
+        "default_reps": 50,
+        "default_sets": 11
+    }
+},
+{
+    "model": "shapeteam.exercise",
+    "pk": 10,
+    "fields": {
+        "name_exe": 1,
+        "default_reps": 55,
+        "default_sets": 12
+    }
+}]

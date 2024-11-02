@@ -1,0 +1,202 @@
+[{
+    "model": "shapeteam.customuser",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$720000$AApwBAxUZAFxyfNudTHgFi$Kr8luclJXz7Ppd/ItwOfHEw0Q9tzrZ2GDfijhD+R/Uw=",
+        "last_login": null,
+        "is_superuser": true,
+        "username": "fulano",
+        "thumbnail": "thumbnails/fulano",
+        "email": "fulano@company.com",
+        "gender": 1,
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2024-09-16T04:07:36.746Z",
+        "groups": [],
+        "user_permissions": [
+            29, 30, 31, 32,
+            37, 38, 39, 40,
+            51, 52, 53, 54, 55, 56
+        ]
+    }
+},
+{
+    "model": "shapeteam.customuser",
+    "pk": 2,
+    "fields": {
+        "password": "pbkdf2_sha256$720000$85cejJjZLm9zwh3Yzk1qX1$JNQX95CraPba05dAh9CDndcH6N3ki4ItySeEBNCe0uY=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "john",
+        "thumbnail": "thumbnails/john",
+        "email": "john@company",
+        "gender": 1,
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2024-09-16T04:08:26.019Z",
+        "groups": [],
+        "user_permissions": [
+            33, 34, 35, 36,
+            51, 52, 53, 54, 55, 56
+        ]
+    }
+},
+{
+    "model": "shapeteam.customuser",
+    "pk": 3,
+    "fields": {
+        "password": "pbkdf2_sha256$720000$PvpuKskliAp5D1mnF3Bf9q$JrKW/nrC7IEXjMJj37F6XZdZb5GvlIkm1YNUYk2sR5A=",
+        "last_login": "2024-09-12T00:02:14.392Z",
+        "is_superuser": true,
+        "username": "name",
+        "thumbnail": "",
+        "email": "da@gmail.com",
+        "gender": 2,
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2024-09-11T23:48:54.731Z",
+        "groups": [],
+        "user_permissions": [
+            45, 46, 47, 48,
+            51, 52, 53, 54, 55, 56
+        ]
+    }
+},
+{
+    "model": "shapeteam.customuser",
+    "pk": 4,
+    "fields": {
+        "password": "pbkdf2_sha256$720000$xaqblelA61D6p4dNXJ9M23$YuF/4k0FaBxZr7hZNQ011e8IEM14lALULGmLA2k4R5Q=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "Adrian",
+        "thumbnail": "",
+        "email": "adrian@gmail.com",
+        "gender": 1,
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2024-09-12T14:25:52.211Z",
+        "groups": [],
+        "user_permissions": [
+            25, 26, 27, 28,
+            29, 30, 31, 32,
+            51, 52, 53, 54, 55, 56
+        ]
+    }
+},
+{
+    "model": "shapeteam.customuser",
+    "pk": 5,
+    "fields": {
+        "password": "pbkdf2_sha256$720000$xaqblelA61D6p4dNXJ9M23$YuF/4k0FaBxZr7hZNQ011e8IEM14lALULGmLA2k4R5Q=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "mike",
+        "thumbnail": "",
+        "email": "mike@gmail.com",
+        "gender": 1,
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2024-09-12T14:25:52.211Z",
+        "groups": [],
+        "user_permissions": [
+            25, 26, 27, 28,
+            29, 30, 31, 32,
+            51, 52, 53, 54, 55, 56,
+            57, 58, 59, 60
+        ]
+    }
+},
+{
+    "model": "shapeteam.customuser",
+    "pk": 6,
+    "fields": {
+        "password": "pbkdf2_sha256$720000$xaqblelA61D6p4dNXJ9M23$YuF/4k0FaBxZr7hZNQ011e8IEM14lALULGmLA2k4R5Q=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "july",
+        "thumbnail": "",
+        "email": "july@gmail.com",
+        "gender": 1,
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2024-09-12T14:25:52.211Z",
+        "groups": [],
+        "user_permissions": [61, 62, 63, 64]
+    }
+},
+{
+    "model": "shapeteam.customuser",
+    "pk": 7,
+    "fields": {
+        "password": "pbkdf2_sha256$720000$xaqblelA61D6p4dNXJ9M23$YuF/4k0FaBxZr7hZNQ011e8IEM14lALULGmLA2k4R5Q=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "Nene",
+        "thumbnail": "",
+        "email": "nene@gmail.com",
+        "gender": 1,
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2024-09-12T14:25:52.211Z",
+        "groups": [],
+        "user_permissions": [
+            53, 54, 55, 56,
+            57, 58, 59, 60
+        ]
+    }
+},
+{
+    "model": "shapeteam.customuser",
+    "pk": 8,
+    "fields": {
+        "password": "pbkdf2_sha256$720000$xaqblelA61D6p4dNXJ9M23$YuF/4k0FaBxZr7hZNQ011e8IEM14lALULGmLA2k4R5Q=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "jose",
+        "thumbnail": "",
+        "email": "jose@company.com",
+        "gender": 1,
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2024-09-12T14:25:52.211Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "shapeteam.customuser",
+    "pk": 9,
+    "fields": {
+        "password": "pbkdf2_sha256$720000$xaqblelA61D6p4dNXJ9M23$YuF/4k0FaBxZr7hZNQ011e8IEM14lALULGmLA2k4R5Q=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "joseph",
+        "thumbnail": "",
+        "email": "joseph@company.com",
+        "gender": 1,
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2024-09-12T14:25:52.211Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "shapeteam.customuser",
+    "pk": 10,
+    "fields": {
+        "password": "pbkdf2_sha256$720000$xaqblelA61D6p4dNXJ9M23$YuF/4k0FaBxZr7hZNQ011e8IEM14lALULGmLA2k4R5Q=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "jó",
+        "thumbnail": "",
+        "email": "jo@company.com",
+        "gender": 1,
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2024-09-12T14:25:52.211Z",
+        "groups": [],
+        "user_permissions": []
+    }
+}]

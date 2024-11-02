@@ -1,0 +1,110 @@
+[{
+    "model": "shapeteam.connection",
+    "pk": 1,
+    "fields": {
+        "sender": 4,
+        "receiver": 5,
+        "accepted": true,
+        "updated": "2024-09-17T02:29:56.224Z",
+        "created": "2024-09-17T02:29:56.224Z"
+    }
+},
+{
+    "model": "shapeteam.connection",
+    "pk": 2,
+    "fields": {
+        "sender": 1,
+        "receiver": 2,
+        "accepted": false,
+        "updated": "2024-09-18T02:29:56.224Z",
+        "created": "2024-09-18T02:29:56.224Z"
+    }
+},
+{
+    "model": "shapeteam.connection",
+    "pk": 3,
+    "fields": {
+        "sender": 3,
+        "receiver": 6,
+        "accepted": true,
+        "updated": "2024-09-19T02:29:56.224Z",
+        "created": "2024-09-19T02:29:56.224Z"
+    }
+},
+{
+    "model": "shapeteam.connection",
+    "pk": 4,
+    "fields": {
+        "sender": 8,
+        "receiver": 7,
+        "accepted": false,
+        "updated": "2024-09-20T02:29:56.224Z",
+        "created": "2024-09-20T02:29:56.224Z"
+    }
+},
+{
+    "model": "shapeteam.connection",
+    "pk": 5,
+    "fields": {
+        "sender": 5,
+        "receiver": 6,
+        "accepted": true,
+        "updated": "2024-09-21T02:29:56.224Z",
+        "created": "2024-09-21T02:29:56.224Z"
+    }
+},
+{
+    "model": "shapeteam.connection",
+    "pk": 6,
+    "fields": {
+        "sender": 6,
+        "receiver": 5,
+        "accepted": false,
+        "updated": "2024-09-22T02:29:56.224Z",
+        "created": "2024-09-22T02:29:56.224Z"
+    }
+},
+{
+    "model": "shapeteam.connection",
+    "pk": 7,
+    "fields": {
+        "sender": 7,
+        "receiver": 4,
+        "accepted": true,
+        "updated": "2024-09-23T02:29:56.224Z",
+        "created": "2024-09-23T02:29:56.224Z"
+    }
+},
+{
+    "model": "shapeteam.connection",
+    "pk": 8,
+    "fields": {
+        "sender": 8,
+        "receiver": 3,
+        "accepted": false,
+        "updated": "2024-09-24T02:29:56.224Z",
+        "created": "2024-09-24T02:29:56.224Z"
+    }
+},
+{
+    "model": "shapeteam.connection",
+    "pk": 9,
+    "fields": {
+        "sender": 9,
+        "receiver": 2,
+        "accepted": true,
+        "updated": "2024-09-25T02:29:56.224Z",
+        "created": "2024-09-25T02:29:56.224Z"
+    }
+},
+{
+    "model": "shapeteam.connection",
+    "pk": 10,
+    "fields": {
+        "sender": 10,
+        "receiver": 1,
+        "accepted": false,
+        "updated": "2024-09-26T02:29:56.224Z",
+        "created": "2024-09-26T02:29:56.224Z"
+    }
+}]

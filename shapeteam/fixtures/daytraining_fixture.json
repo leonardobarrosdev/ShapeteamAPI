@@ -1,0 +1,33 @@
+[{
+    "model": "shapeteam.daytraining",
+    "pk": 1,
+    "fields": {
+        "routine": 8,
+        "weekday": "monday",
+        "exercises": [
+            1
+        ]
+    }
+},
+{
+    "model": "shapeteam.daytraining",
+    "pk": 2,
+    "fields": {
+        "routine": 7,
+        "weekday": "monday",
+        "exercises": [
+            1
+        ]
+    }
+},
+{
+    "model": "shapeteam.daytraining",
+    "pk": 3,
+    "fields": {
+        "routine": 6,
+        "weekday": "sunday",
+        "exercises": [
+            1
+        ]
+    }
+}]    

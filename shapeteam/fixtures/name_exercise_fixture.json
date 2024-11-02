@@ -1,0 +1,160 @@
+[{
+    "model": "shapeteam.nameexercise",
+    "pk": 1,
+    "fields": {
+        "name": "teste",
+        "description": "teste",
+        "muscle_group": "teste",
+        "photo": "photos/teste.png"
+    }
+},
+{
+    "model": "shapeteam.nameexercise",
+    "pk": 2,
+    "fields": {
+        "name": "teste 1",
+        "description": "description",
+        "muscle_group": "muscle_group",
+        "photo": ""
+    }
+},
+{
+    "model": "shapeteam.nameexercise",
+    "pk": 3,
+    "fields": {
+        "name": "teste 3",
+        "description": "teste",
+        "muscle_group": "teste",
+        "photo": "photos/teste.png"
+    }
+},
+{
+    "model": "shapeteam.nameexercise",
+    "pk": 4,
+    "fields": {
+        "name": "teste 4",
+        "description": "description",
+        "muscle_group": "muscle_group",
+        "photo": ""
+    }
+},
+{
+    "model": "shapeteam.nameexercise",
+    "pk": 5,
+    "fields": {
+        "name": "teste 5",
+        "description": "teste",
+        "muscle_group": "teste",
+        "photo": "photos/teste.png"
+    }
+},
+{
+    "model": "shapeteam.nameexercise",
+    "pk": 6,
+    "fields": {
+        "name": "teste 6",
+        "description": "description",
+        "muscle_group": "muscle_group",
+        "photo": ""
+    }
+},
+{
+    "model": "shapeteam.nameexercise",
+    "pk": 7,
+    "fields": {
+        "name": "teste 7",
+        "description": "teste",
+        "muscle_group": "teste",
+        "photo": "photos/teste.png"
+    }
+},
+{
+    "model": "shapeteam.nameexercise",
+    "pk": 8,
+    "fields": {
+        "name": "teste 8",
+        "description": "description",
+        "muscle_group": "muscle_group",
+        "photo": ""
+    }
+},
+{
+    "model": "shapeteam.nameexercise",
+    "pk": 9,
+    "fields": {
+        "name": "teste 9",
+        "description": "teste",
+        "muscle_group": "teste",
+        "photo": "photos/teste.png"
+    }
+},
+{
+    "model": "shapeteam.nameexercise",
+    "pk": 10,
+    "fields": {
+        "name": "teste 10",
+        "description": "description",
+        "muscle_group": "muscle_group",
+        "photo": ""
+    }
+},
+{
+    "model": "shapeteam.nameexercise",
+    "pk": 11,
+    "fields": {
+        "name": "teste 11",
+        "description": "teste",
+        "muscle_group": "teste",
+        "photo": "photos/teste.png"
+    }
+},
+{
+    "model": "shapeteam.nameexercise",
+    "pk": 12,
+    "fields": {
+        "name": "teste 12",
+        "description": "description",
+        "muscle_group": "muscle_group",
+        "photo": ""
+    }
+},
+{
+    "model": "shapeteam.nameexercise",
+    "pk": 13,
+    "fields": {
+        "name": "teste 13",
+        "description": "teste",
+        "muscle_group": "teste",
+        "photo": "photos/teste.png"
+    }
+},
+{
+    "model": "shapeteam.nameexercise",
+    "pk": 14,
+    "fields": {
+        "name": "teste 14",
+        "description": "description",
+        "muscle_group": "muscle_group",
+        "photo": ""
+    }
+},
+{
+    "model": "shapeteam.nameexercise",
+    "pk": 15,
+    "fields": {
+        "name": "teste 15",
+        "description": "teste",
+        "muscle_group": "teste",
+        "photo": "photos/teste.png"
+    }
+},
+{
+    "model": "shapeteam.nameexercise",
+    "pk": 16,
+    "fields": {
+        "name": "teste 16",
+        "description": "description",
+        "muscle_group": "muscle_group",
+        "photo": ""
+    }
+}]

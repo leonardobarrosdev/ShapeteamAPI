@@ -1,0 +1,30 @@
+[{
+    "model": "shapeteam.exerciseranking",
+    "pk": 1,
+    "fields": {
+        "user": 5,
+        "exercise": 1,
+        "score": 5,
+        "update": "2024-09-17T02:29:56.224Z"
+    }
+},
+{
+    "model": "shapeteam.exerciseranking",
+    "pk": 2,
+    "fields": {
+        "user": 5,
+        "exercise": 1,
+        "score": 5,
+        "update": "2024-09-17T03:29:56.224Z"
+    }
+},
+{
+    "model": "shapeteam.exerciseranking",
+    "pk": 3,
+    "fields": {
+        "user": 5,
+        "exercise": 1,
+        "score": 5,
+        "update": "2024-09-17T04:29:56.224Z"
+    }
+}]
