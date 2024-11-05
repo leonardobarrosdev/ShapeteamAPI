@@ -1,5 +1,6 @@
 asgiref==3.8.1
 asttokens==2.4.1
+click==8.1.7
 decorator==5.1.1
 dj-database-url==2.2.0
 Django==5.0.2
@@ -10,6 +11,7 @@ djangorestframework==3.15.2
 exceptiongroup==1.2.2
 executing==2.1.0
 gunicorn==23.0.0
+h11==0.14.0
 ipdb==0.13.13
 ipython==8.27.0
 jedi==0.19.1
@@ -29,5 +31,5 @@ stack-data==0.6.3
 tomli==2.0.1
 traitlets==5.14.3
 typing_extensions==4.12.2
+uvicorn==0.32.0
 wcwidth==0.2.13
-uvicorn
