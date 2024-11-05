@@ -1,6 +1,5 @@
 from django.contrib.auth import get_user_model, login, logout
 from rest_framework import generics, status
-from rest_framework import generics
 from rest_framework import status
 from rest_framework.generics import CreateAPIView, UpdateAPIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
@@ -80,7 +79,7 @@ class ChatsAPIView(generics.ListCreateAPIView):
 class ChatAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Chat.objects.all()
     serializer_class = ChatSerializer
-    # authentication_classes = [IsAuthenticated]
+    authentication_classes = [IsAuthenticated]
     permissions = ['change_chat', 'delete_chat']
 
 

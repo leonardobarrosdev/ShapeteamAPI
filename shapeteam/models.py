@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import BaseUserManager, PermissionsMixin, AbstractBaseUser
 from django.conf import settings
 from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
 
 def upload_thumbnail(instance, filename):
 	path = f'thumbnails/{instance.username}'
@@ -111,8 +112,8 @@ class DayTraining(models.Model):
     exercises = models.ManyToManyField(Exercise)
     
     class Meta:
-        verbose_name = "Day Training"
-        verbose_name_plural = "Day Trainings"
+        verbose_name = _("Day Training")
+        verbose_name_plural = _("Day Trainings")
 
 
 class DayExercise(models.Model):
@@ -123,8 +124,8 @@ class DayExercise(models.Model):
     duration = models.DurationField()
 
     class Meta:
-        verbose_name = "Day Exercise"
-        verbose_name_plural = "Day Exercises"
+        verbose_name = _("Day Exercise")
+        verbose_name_plural = _("Day Exercises")
 
 
 class WeekRoutine(models.Model):
@@ -138,8 +139,8 @@ class WeekRoutine(models.Model):
     sunday = models.ManyToManyField(DayTraining, related_name='sunday_routine', blank=True)
     
     class Meta:
-        verbose_name = "Week Routine"
-        verbose_name_plural = "Week Routines"
+        verbose_name = _("Week Routine")
+        verbose_name_plural = _("Week Routines")
         
 
 class Chat(models.Model):
@@ -159,8 +160,8 @@ class ExerciseRanking(models.Model):
     update = models.DateTimeField(auto_now=True)
 
     class Meta:
-        verbose_name = "Exercise Ranking"
-        verbose_name_plural = "Exercise Rankings"
+        verbose_name = _("Exercise Ranking")
+        verbose_name_plural = _("Exercise Rankings")
 
 
 class Gym(models.Model):
@@ -168,5 +169,5 @@ class Gym(models.Model):
     location = models.CharField(max_length=255)
 
     class Meta:
-        verbose_name = "Gym"
-        verbose_name_plural = "Gyms"
+        verbose_name = _("Gym")
+        verbose_name_plural = _("Gyms")

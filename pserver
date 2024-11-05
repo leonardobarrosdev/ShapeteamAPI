@@ -1,0 +1,5 @@
+[server:main]
+use = egg:gunicorn#main
+host = 216.24.60.0/24
+port = 8080
+workers = 3

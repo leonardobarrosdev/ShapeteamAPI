@@ -7,6 +7,9 @@ from shapeteam.serializers import *
 
 PATH = 'shapeteam/fixtures'
 
+class HomeAPITest(APITestCase):
+    pass
+
 
 class UserAPITest(APITestCase):
     fixtures = [f'{PATH}/user_fixture.json']
