@@ -10,6 +10,10 @@ from .models import *
 from .serializers import *
 
 
+# class HomeAPI(APIView):
+    # authentication_classes = []
+
+
 class CreateUserAPI(CreateAPIView):
     queryset = CustomUser.objects.all()
     serializer_class = CreateUserSerializer
@@ -26,16 +30,13 @@ class LoginAPIView(knox_views.LoginView):
     permission_classes = (AllowAny, )
     serializer_class = LoginSerializer
 
-    def post(self, request, format=None):
+    def post(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data)
-        if serializer.is_valid(raise_exception=True):
-            user = serializer.validated_data['user']
-            login(request, user)
-            response = super().post(request, format=None)
-        else:
-            return Response({'errors': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
-
-        return Response(response.data, status=status.HTTP_200_OK)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.validated_data['user']
+        login(request, user)
+        response = super().post(request, *args, **kwargs)
+        return response
 
 
 class ExercisesAPIView(generics.ListCreateAPIView):
