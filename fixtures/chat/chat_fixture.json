@@ -1,0 +1,30 @@
+[{
+    "model": "chat.chat",
+    "pk": 1,
+    "fields": {
+        "connection": 1,
+        "user": 4,
+        "text": "Hello man!",
+        "created": "2024-09-17T02:29:56.224Z"
+    }
+},
+{
+    "model": "chat.chat",
+    "pk": 2,
+    "fields": {
+        "connection": 1,
+        "user": 5,
+        "text": "Hi bro. How are you?",
+        "created": "2024-09-17T02:29:56.224Z"
+    }
+},
+{
+    "model": "chat.chat",
+    "pk": 3,
+    "fields": {
+        "connection": 3,
+        "user": 4,
+        "text": "Nice...",
+        "created": "2024-09-17T02:29:56.224Z"
+    }
+}]

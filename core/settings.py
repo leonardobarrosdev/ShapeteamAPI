@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 import os, environ
 from pathlib import Path
 from datetime import timedelta
-import dj_database_url
 
 
 env = environ.Env()
@@ -48,7 +47,9 @@ INSTALLED_APPS = [
     'corsheaders',
     'knox',
     # Apps
-    'shapeteam',
+    'api.user',
+    'api.chat',
+    'api.shapeteam',
 ]
 
 MIDDLEWARE = [
@@ -67,8 +68,8 @@ ROOT_URLCONF = 'core.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
-        'APP_DIRS': True,
+        'DIRS': [],
+        'APP_DIRS': False,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -94,6 +95,7 @@ if DEBUG:
      	}
     }
 else:
+    import dj_database_url
     DATABASES = {'default': dj_database_url.parse(env('DATABASE_URL'))}
 
 
@@ -140,8 +142,25 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 MEDIA_URL = 'media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-AUTH_USER_MODEL = 'shapeteam.CustomUser'
-LOGIN_REDIRECT_URL = 'gyms/'
+AUTH_USER_MODEL = 'user.CustomUser'
+
+LOGIN_URL = '/api/login/'
+LOGIN_REDIRECT_URL = '/api/'
+
+if DEBUG:
+    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+else:
+    EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+    EMAIL_HOST = 'smtp.gmail.com'
+    EMAIL_HOST_USER = env('EMAIL_ADDRESS')
+    EMAIL_HOST_PASWORD = env('EMAIL_HOST_PASWORD')
+    EMAIL_PORT = 587
+    EMAIL_USE_TLS = True
+    DEFAULT_FROM_EMAIL = 'Shapetheam ' + env('EMAIL_ADDRESS')
+    ACCOUNT_EMAIL_SUBJECT_PREFIX = ''
+
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_REQUIRED = True
 
 # DRF
 REST_FRAMEWORK = {

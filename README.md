@@ -60,10 +60,16 @@ In order for you to have a development environment that is as conducive as possi
    python manage.py createsuperuser
    ```
 
-9. **Run the development server**:
-```bash
-python manage.py runserver
-```
+9. You can **populate the database**:
+   ```bash
+   python manage.py loaddata shapeteam/fixtures/*.json
+   ```
+   Obs: Not realize this comand (9) for production.
+
+10. **Run the development server**:
+   ```bash
+   python manage.py runserver
+   ```
 
 
 ## 🌟 **Funtionalities**
