@@ -24,22 +24,25 @@ class RegisterAPIView(CreateAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
-        # getting access tokens
-        token = AuthToken.objects.create(user)[1]
+        # Create a Knox token
+        token_object, token = AuthToken.objects.create(user)
+        token_key = token[:8]
         # send email for user verification
         current_site = get_current_site(request).domain
         relative_link = reverse('user:email-verify')
         protocol = 'http://' if DEBUG else 'https://'
-        url = protocol + current_site + relative_link + "?token=" + str(token)
-        email_body = _('Hi ') + user['last_name'] + \
-                     _(' Use the link below to verify your email \n') + url
-        data = {'email_body': email_body, 'to_email': user['email'],
-                'email_subject': _('Verify your email')}
+        url = f"{protocol}{current_site}{relative_link}?token={token_key}:{token}"
+        email_body = f'Hi {user.first_name},\nUse the link below to verify your email:\n{url}'
+        data = {
+            'email_subject': 'Verify your email',
+            'email_body': email_body,
+            'to_email': user.email
+        }
         Util.send_email(data=data)
         return Response({
             "user": UserSerializer(user, context=self.get_serializer_context()).data,
             "token": token
-        })
+        }, status=status.HTTP_201_CREATED)
 
 
 class LoginAPIView(knox_views.LoginView):
@@ -72,8 +75,14 @@ class VerifyEmailAPIView(GenericAPIView):
 
     def get(self, request):
         token = request.GET.get('token')
+        if not token or ':' not in token:
+            return Response({"error": _("Invalid token format.")}, status=status.HTTP_400_BAD_REQUEST)
+        token_key, token_digest = token.split(':', 1)
         try:
-            user = AuthToken.objects.get(token_key=token[:8]).user
+            auth_token = AuthToken.objects.authenticate(token_key, token_digest)
+            if auth_token is None:
+                raise AuthToken.DoesNotExist
+            user = auth_token.user
             if user.is_active:
                 return Response({"message": _("Account already verified.")}, status=status.HTTP_400_BAD_REQUEST)
             user.is_active = True

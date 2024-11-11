@@ -18,24 +18,35 @@ class RegisterAPITest(APITestCase):
 
     def test_create_user_success(self):
         response = self.client.post(
-            reverse('user:create'),
+            reverse('user:register'),
             data=json.dumps(self.data),
             content_type='application/json'
         )
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(self.user.objects.count(), 11)
-        self.assertEqual(response.data['email'], self.data['email'])
+        self.assertEqual(response.data['user']['email'], self.data['email'])
 
     def test_create_user_error(self):
         data = self.data.copy()
         del data['email']
         response = self.client.post(
-            reverse('user:create'),
+            reverse('user:register'),
             data=json.dumps(data),
             content_type='application/json'
         )
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-
+'''
+    def test_verify_email_success(self):
+        response_user = self.client.post(
+            reverse('user:register'),
+            data=json.dumps(self.data),
+            content_type='application/json'
+        )
+        token = "?token=" + response_user.data['token']
+        response = self.client.get(reverse('user:email-verify') + token)
+        self.assertEqual(response.data['message'], "Email successfully verified!")
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+'''
 
 class LoginAPITest(APITestCase):
     fixtures = ['fixtures/user/user_fixture.json']
@@ -78,12 +89,9 @@ class UpdateUserAPITest(APITestCase):
         self.assertEqual(response.data['last_name'], 'Doe')
 
     def test_update_user_error(self):
-        user = self.user.objects.create(**self.data)
-        data = self.data.copy()
-        del data['email']
         response = self.client.put(
-            reverse('user:update', kwargs={'pk': str(user.pk)}),
-            data=json.dumps(data),
+            reverse('user:update', kwargs={'pk': str(self.user.pk)}),
+            data=json.dumps({'email': ''}),
             content_type='application/json'
         )
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
