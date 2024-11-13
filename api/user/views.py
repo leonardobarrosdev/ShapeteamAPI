@@ -2,8 +2,9 @@ from django.contrib.auth import get_user_model, login
 from django.contrib.sites.shortcuts import get_current_site
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
+from knox.auth import TokenAuthentication
 from knox.models import AuthToken
-from rest_framework import status
+from rest_framework import status, exceptions
 from rest_framework.generics import CreateAPIView, UpdateAPIView, GenericAPIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
@@ -61,32 +62,41 @@ class LoginAPIView(knox_views.LoginView):
 class UpdateUserAPI(UpdateAPIView):
     queryset = get_user_model().objects.all()
     serializer_class = UpdateUserSerializer
+    authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
 
 
 class ChangePasswordView(UpdateAPIView):
     queryset = get_user_model().objects.all()
     serializer_class = ChangePasswordSerializer
+    authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
 
 
+class TokenAuth(TokenAuthentication):
+    def validate_user(self, auth_token):
+        user = auth_token.user
+        if not user:
+            raise exceptions.AuthenticationFailed(_('User not exist.'))
+        if user.is_active:
+            raise exceptions.AuthenticationFailed(_("User already verified."))
+        user.is_active = True
+        user.save()
+        return (user, auth_token)
+
+
 class VerifyEmailAPIView(GenericAPIView):
+    authentication_classes = (TokenAuth,)
     permission_classes = (AllowAny,)
 
     def get(self, request):
-        token = request.GET.get('token')
-        if not token or ':' not in token:
-            return Response({"error": _("Invalid token format.")}, status=status.HTTP_400_BAD_REQUEST)
-        token_key, token_digest = token.split(':', 1)
+        auth = TokenAuth()
         try:
-            auth_token = AuthToken.objects.authenticate(token_key, token_digest)
-            if auth_token is None:
-                raise AuthToken.DoesNotExist
-            user = auth_token.user
-            if user.is_active:
-                return Response({"message": _("Account already verified.")}, status=status.HTTP_400_BAD_REQUEST)
-            user.is_active = True
-            user.save()
-            return Response({"message": _("Email successfully verified!")}, status=status.HTTP_200_OK)
+            user, token = auth.authenticate(request)
+            return Response({
+                "user": UserSerializer(user, context=self.get_serializer_context()).data,
+                "token": token,
+                "message": 'Email successfully verified!'
+            }, status=status.HTTP_200_OK)
         except AuthToken.DoesNotExist:
             return Response({"error": _("Invalid or expired token.")}, status=status.HTTP_400_BAD_REQUEST)
