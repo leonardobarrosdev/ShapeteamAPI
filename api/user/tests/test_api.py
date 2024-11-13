@@ -1,4 +1,4 @@
-import json
+import json, ipdb
 from django.contrib.auth import get_user_model
 from django.urls import reverse
 from rest_framework.test import APITestCase
@@ -14,7 +14,7 @@ class RegisterAPITest(APITestCase):
         "password": "p4ssM0rd",
         "password2": "p4ssM0rd"
     }
-    user = get_user_model()
+    User = get_user_model()
 
     def test_create_user_success(self):
         response = self.client.post(
@@ -23,7 +23,7 @@ class RegisterAPITest(APITestCase):
             content_type='application/json'
         )
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(self.user.objects.count(), 11)
+        self.assertEqual(self.User.objects.count(), 11)
         self.assertEqual(response.data['user']['email'], self.data['email'])
 
     def test_create_user_error(self):
@@ -35,18 +35,20 @@ class RegisterAPITest(APITestCase):
             content_type='application/json'
         )
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-'''
+
+
+class EmailAPITest(APITestCase):
     def test_verify_email_success(self):
-        response_user = self.client.post(
+        resp = self.client.post(
             reverse('user:register'),
             data=json.dumps(self.data),
             content_type='application/json'
         )
-        token = "?token=" + response_user.data['token']
-        response = self.client.get(reverse('user:email-verify') + token)
-        self.assertEqual(response.data['message'], "Email successfully verified!")
+        # self.client.credentials(HTTP_AUTHORIZATION='Token ' + resp.data['token'])
+        response = self.client.get(reverse('user:email-verify') + '?token=' + resp.data['token'])
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-'''
+        self.assertEqual(response.data.message, 'Email successfully verified!')
+
 
 class LoginAPITest(APITestCase):
     fixtures = ['fixtures/user/user_fixture.json']

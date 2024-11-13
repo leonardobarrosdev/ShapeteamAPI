@@ -9,7 +9,7 @@ from .models import CustomUser
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = ('id', 'email', 'gender')
+        fields = ('id', 'first_name', 'email', 'gender')
 
 
 class RegisterSerializer(serializers.ModelSerializer):
