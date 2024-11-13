@@ -33,7 +33,6 @@ DEBUG = env('DEBUG', default=False)
 
 ALLOWED_HOSTS = env('ALLOWED_HOSTS').split(' ')
 
-
 # Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -54,6 +53,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -84,7 +84,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'core.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 if DEBUG:
@@ -97,7 +96,6 @@ if DEBUG:
 else:
     import dj_database_url
     DATABASES = {'default': dj_database_url.parse(env('DATABASE_URL'))}
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -116,7 +114,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
@@ -128,7 +125,6 @@ USE_I18N = True
 
 USE_TZ = True        
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
@@ -139,6 +135,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+if not DEBUG:
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 MEDIA_URL = 'media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
@@ -202,7 +202,7 @@ CORS_ALLOW_HEADERS = (
     "authorization",
     "content-type",
     "user-agent",
-    "x-csrftoken",
+    "x-tokenise",
     "x-requested-with",
 )
 
