@@ -11,5 +11,4 @@ urlpatterns = [
     path('logout-all/', LogoutAllView.as_view(), name='logouts'),
     path('<int:pk>/update/', views.UpdateUserAPI.as_view(), name='update'),
     path('<int:pk>/change-password/', views.ChangePasswordView.as_view(), name='change-password'),
-    path('email-verify/', views.VerifyEmailAPIView.as_view(), name='email-verify')
 ]

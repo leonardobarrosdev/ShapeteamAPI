@@ -1,0 +1,18 @@
+{% load i18n %}
+{% blocktranslate with first_name=user.first_name %}
+Dear {{ first_name }}.
+
+Welcome to Shapeteam, the ultimate platform to find your perfect workout partner! We are thrilled to have you join us on this exciting fitness journey.
+
+The Shapeteam project was created with the goal of connecting individuals who are passionate about health and fitness, and helping them find like-minded partners to train and achieve their fitness goals together. Our platform allows you to create a personalized profile, search for workout partners with similar interests, schedule workout sessions, share experiences, and motivate each other along the way.
+
+Whether you are looking for a running buddy, a yoga partner, or a weightlifting pal, Shapeteam is here to help you find the perfect match. We believe that exercising with a partner not only makes workouts more enjoyable, but it also boosts motivation and accountability, leading to better results.
+
+We are so excited to see you connect with other fitness enthusiasts and start achieving your fitness goals together. Stay tuned for upcoming features, events, and challenges that will make your fitness journey even more rewarding.
+
+Thank you for joining Shapeteam. Let's work out together, motivate each other, and have fun getting fit!
+
+Best regards,
+
+The Shapeteam Team
+{% endblocktranslate %}
