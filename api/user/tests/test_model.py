@@ -1,3 +1,4 @@
+from django.core import mail
 from django.test import TestCase
 from api.user.models import CustomUser
 

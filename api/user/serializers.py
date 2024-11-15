@@ -33,7 +33,7 @@ class RegisterSerializer(serializers.ModelSerializer):
         password = attrs.get('password')
         if CustomUser.objects.filter(email=email).exists():
             raise serializers.ValidationError(_('User with this email id already exists.'))
-        if len(password) < 4 or password != attrs.get('password2'):
+        if password != attrs.get('password2'):
             raise serializers.ValidationError(_('Invalid password.'))
         return attrs
 

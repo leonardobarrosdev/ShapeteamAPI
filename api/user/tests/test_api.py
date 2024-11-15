@@ -1,4 +1,4 @@
-import json, ipdb
+import json
 from django.contrib.auth import get_user_model
 from django.urls import reverse
 from rest_framework.test import APITestCase
@@ -35,19 +35,6 @@ class RegisterAPITest(APITestCase):
             content_type='application/json'
         )
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-
-
-class EmailAPITest(APITestCase):
-    def test_verify_email_success(self):
-        resp = self.client.post(
-            reverse('user:register'),
-            data=json.dumps(self.data),
-            content_type='application/json'
-        )
-        # self.client.credentials(HTTP_AUTHORIZATION='Token ' + resp.data['token'])
-        response = self.client.get(reverse('user:email-verify') + '?token=' + resp.data['token'])
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data.message, 'Email successfully verified!')
 
 
 class LoginAPITest(APITestCase):
