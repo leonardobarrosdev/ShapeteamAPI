@@ -16,8 +16,13 @@ core/               # The core of the system
     /settings.py    # Settings
     /urls.py
     /wsgi
-/shapeteam          # App
-      # files of app shapeteam
+api/
+    /chat/
+        # files of app chat
+    /shapeteam
+        # files of app shapeteam
+    /user/
+        # files of app user
 .coveragerc        # Test Coverage
 manage.py          # Manage from system
 requirements.txt   # Requirements
