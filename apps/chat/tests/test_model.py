@@ -1,8 +1,8 @@
 from django.contrib.auth import get_user_model
 from django.db import IntegrityError
 from django.test import TestCase
-from api.shapeteam.models import Connection
-from api.chat.models import Chat
+from apps.shapeteam.models import Connection
+from apps.chat.models import Chat
 
 
 class ChatTest(TestCase):

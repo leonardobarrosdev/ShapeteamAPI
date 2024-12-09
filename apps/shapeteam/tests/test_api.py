@@ -2,13 +2,9 @@ import json
 from rest_framework.test import APITestCase
 from django.urls import reverse
 from rest_framework import status
-from api.shapeteam.serializers import *
+from apps.shapeteam.serializers import *
 
 PATH = 'fixtures/shapeteam'
-
-class HomeAPITest(APITestCase):
-    pass
-
 
 class ExerciseAPITest(APITestCase):
     fixtures = [

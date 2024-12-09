@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.utils.translation import gettext_lazy as _
-from api.user.serializers import UserSerializer
+from apps.user.serializers import UserSerializer
 from .models import *
 
 
@@ -18,7 +18,16 @@ class ExerciseSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Exercise
-        fields = ['id', 'name_exe', 'name', 'description', 'default_reps', 'default_sets', 'muscle_group', 'photo']
+        fields = (
+            'id',
+            'name_exe',
+            'name',
+            'description',
+            'default_reps',
+            'default_sets',
+            'muscle_group',
+            'photo'
+        )
 
     def get_description(self, obj):
         return obj.name_exe.description if obj.name_exe else None
@@ -36,11 +45,7 @@ class ExerciseSerializer(serializers.ModelSerializer):
 class DayTrainingSerializer(serializers.ModelSerializer):
     class Meta:
         model = DayTraining
-        fields = (
-            'routine',
-            'weekday',
-            'exercises'
-        )
+        fields = ('routine', 'weekday', 'exercises')
 
 
 class DayExerciceSerializer(serializers.ModelSerializer):
@@ -52,41 +57,30 @@ class DayExerciceSerializer(serializers.ModelSerializer):
             'reps',
             'sets',
             'duration'
-            )
+        )
 
 
 class ExerciseRankingSerializer(serializers.ModelSerializer):
     class Meta:
         model = ExerciseRanking
-        fields = (
-            'user',
-            'exercise',
-            'score',
-            'update'
-            )
+        fields = ('user', 'exercise', 'score', 'update')
 
 
 class GymSerializer(serializers.ModelSerializer):
+    name = serializers.CharField(max_length=120, required=True)
+
     class Meta:
         model = Gym
-        fields = (
-            'name',
-            'location'
-        )
+        fields = ('name', 'location')
 
 
 class RequestSerializer(serializers.ModelSerializer):
-	sender = UserSerializer()
-	receiver = UserSerializer()
+    sender = UserSerializer()
+    receiver = UserSerializer()
 
-	class Meta:
-		model = Connection
-		fields = [
-			'id',
-			'sender',
-			'receiver',
-			'created'
-		]
+    class Meta:
+        model = Connection
+        fields = ('id', 'sender', 'receiver', 'created')
 
 
 class FriendSerializer(serializers.ModelSerializer):
@@ -96,12 +90,7 @@ class FriendSerializer(serializers.ModelSerializer):
 	
 	class Meta:
 		model = Connection
-		fields = [
-			'id',
-			'friend',
-			'preview',
-			'updated'
-		]
+		fields = ('id', 'friend', 'preview', 'updated')
 
 	def get_friend(self, obj):
 		if self.context['user'] == obj.sender:

@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.contrib.auth import get_user_model
 from django.db.utils import IntegrityError
-from api.shapeteam.models import *
+from apps.shapeteam.models import *
 import datetime
 
 PATH = 'fixtures/shapeteam'
@@ -88,10 +88,6 @@ class GymTest(TestCase):
         gym = Gym.objects.create(name="Fitness Center", location="123 Fitness St")
         self.assertEqual(gym.name, "Fitness Center")
         self.assertEqual(gym.location, "123 Fitness St")
-    
-    # def test_gym_error(self):
-    #     with self.assertRaises(IntegrityError):
-    #         Gym.objects.create(location="123 Fitness St")
     
     def test_gym_obj_field(self):
         gym = Gym.objects.create(name="Fitness Center", location="123 Fitness St")

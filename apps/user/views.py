@@ -3,8 +3,9 @@ from django.template.loader import render_to_string
 from django.utils.translation import gettext_lazy as _
 from knox.auth import TokenAuthentication
 from knox.models import AuthToken
-from rest_framework import status, exceptions
-from rest_framework.generics import CreateAPIView, UpdateAPIView, GenericAPIView
+from rest_framework import status
+from rest_framework.authentication import SessionAuthentication
+from rest_framework.generics import CreateAPIView, UpdateAPIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from knox import views as knox_views
@@ -35,7 +36,13 @@ class RegisterAPIView(CreateAPIView):
         }, status=status.HTTP_201_CREATED)
 
 
+class CsrfExemptSessionAuthentication(SessionAuthentication):
+    def enforce_csrf(self, request):
+        return  True # To not perform the csrf check
+
+
 class LoginAPIView(knox_views.LoginView):
+    authentication_classes = [CsrfExemptSessionAuthentication]
     serializer_class = LoginSerializer
     permission_classes = (AllowAny,)
 
@@ -48,14 +55,14 @@ class LoginAPIView(knox_views.LoginView):
         return response
 
 
-class UpdateUserAPI(UpdateAPIView):
+class UpdateUserAPIView(UpdateAPIView):
     queryset = get_user_model().objects.all()
     serializer_class = UpdateUserSerializer
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
 
 
-class ChangePasswordView(UpdateAPIView):
+class ChangePasswordAPIView(UpdateAPIView):
     queryset = get_user_model().objects.all()
     serializer_class = ChangePasswordSerializer
     authentication_classes = (TokenAuthentication,)

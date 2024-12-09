@@ -4,8 +4,8 @@ from channels.generic.websocket import WebsocketConsumer
 from django.core.files.base import  ContentFile
 from django.db.models import Q, Exists, OuterRef
 from django.db.models.functions import Coalesce
-from api.shapeteam.models import User, Connection, Message
-from api.shapeteam.serializers import (
+from apps.shapeteam.models import User, Connection, Message
+from apps.shapeteam.serializers import (
 	UserSerializer, 
 	SearchSerializer, 
 	RequestSerializer, 

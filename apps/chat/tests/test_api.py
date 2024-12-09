@@ -3,8 +3,8 @@ from django.urls import reverse
 from django.contrib.auth import get_user_model
 from rest_framework.test import APITestCase
 from rest_framework import status
-from api.shapeteam.models import Connection
-from api.chat.models import Chat
+from apps.shapeteam.models import Connection
+from apps.chat.models import Chat
 
 
 class ChatAPITest(APITestCase):

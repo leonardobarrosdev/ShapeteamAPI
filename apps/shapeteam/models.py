@@ -23,13 +23,22 @@ class NameExercise(models.Model):
 
 class Exercise(models.Model):
     name_exe = models.ForeignKey(NameExercise, related_name='exercises', on_delete=models.CASCADE)   
-    default_reps = models.IntegerField()
-    default_sets = models.IntegerField()
+    default_reps = models.IntegerField() # repetitions
+    default_sets = models.IntegerField() # sections
 
 
 class DayTraining(models.Model):
+    WEEKDAYS = (
+        ('sunday', _('sunday')),
+        ('monday', _('monday')),
+        ('tuesday', _('tuesday')),
+        ('wednesday', _('wednesday')),
+        ('thursday', _('thursday')),
+        ('friday', _('friday')),
+        ('saturday', _('saturday'))
+    )
     routine = models.ForeignKey('WeekRoutine', on_delete=models.CASCADE)
-    weekday = models.CharField(max_length=120, default='monday')
+    weekday = models.CharField(choices=WEEKDAYS, max_length=9, default='monday')
     exercises = models.ManyToManyField(Exercise)
     
     class Meta:
@@ -100,7 +109,7 @@ class Connection(models.Model):
 	created = models.DateTimeField(auto_now_add=True)
 
 	def __str__(self):
-		return self.sender.username + ' -> ' + self.receiver.username
+		return self.sender.first_name + ' -> ' + self.receiver.first_name
 
 
 class Level(models.Model):

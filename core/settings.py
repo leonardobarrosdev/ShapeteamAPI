@@ -46,9 +46,9 @@ INSTALLED_APPS = [
     'corsheaders',
     'knox',
     # Apps
-    'api.user',
-    'api.chat',
-    'api.shapeteam',
+    'apps.user',
+    'apps.chat',
+    'apps.shapeteam',
 ]
 
 MIDDLEWARE = [

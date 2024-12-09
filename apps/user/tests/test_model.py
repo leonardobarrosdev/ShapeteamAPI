@@ -1,6 +1,6 @@
 from django.core import mail
 from django.test import TestCase
-from api.user.models import CustomUser
+from apps.user.models import CustomUser
 
 
 class UserModelTest(TestCase):

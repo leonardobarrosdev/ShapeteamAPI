@@ -5,7 +5,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('accounts/', include('api.user.urls')),
-    path('', include('api.shapeteam.urls')),
-    path('chats/', include('api.chat.urls')),
+    path('accounts/', include('apps.user.urls')),
+    path('', include('apps.shapeteam.urls')),
+    path('chats/', include('apps.chat.urls')),
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
