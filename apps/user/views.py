@@ -13,7 +13,13 @@ from .serializers import *
 from .utils import Util
 
 
+class CsrfExemptSessionAuthentication(SessionAuthentication):
+    def enforce_csrf(self, request):
+        return True # To not perform the csrf check
+
+
 class RegisterAPIView(CreateAPIView):
+    authentication_classes = [CsrfExemptSessionAuthentication]
     queryset = get_user_model().objects.all()
     serializer_class = RegisterSerializer
     permission_classes = (AllowAny,)
@@ -34,11 +40,6 @@ class RegisterAPIView(CreateAPIView):
             "user": UserSerializer(user, context=self.get_serializer_context()).data,
             "token": token
         }, status=status.HTTP_201_CREATED)
-
-
-class CsrfExemptSessionAuthentication(SessionAuthentication):
-    def enforce_csrf(self, request):
-        return  True # To not perform the csrf check
 
 
 class LoginAPIView(knox_views.LoginView):
