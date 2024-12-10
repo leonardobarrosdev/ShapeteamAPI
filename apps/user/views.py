@@ -1,17 +1,20 @@
 from django.contrib.auth import get_user_model, login
+from django.db.models import Q
 from django.template.loader import render_to_string
 from django.utils.translation import gettext_lazy as _
 from knox.auth import TokenAuthentication
 from knox.models import AuthToken
-from rest_framework import status
+from rest_framework import status, viewsets
 from rest_framework.authentication import SessionAuthentication
 from rest_framework.generics import CreateAPIView, UpdateAPIView
+from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from knox import views as knox_views
 from .serializers import *
 from .utils import Util
 
+User = get_user_model()
 
 class CsrfExemptSessionAuthentication(SessionAuthentication):
     def enforce_csrf(self, request):
@@ -53,6 +56,8 @@ class LoginAPIView(knox_views.LoginView):
         user = serializer.validated_data['user']
         login(request, user)
         response = super().post(request, *args, **kwargs)
+        user_serializer = UserSerializer(user)
+        response.data['user'] = user_serializer.data
         return response
 
 
@@ -68,3 +73,19 @@ class ChangePasswordAPIView(UpdateAPIView):
     serializer_class = ChangePasswordSerializer
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
+
+
+class SearchUserAPIView(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializers_class = UserSerializer
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+    pagination_class = PageNumberPagination
+
+    def get_queryset(self):
+        """Search users by first name or last name"""
+        search = self.request.query_params['search', '']
+        return User.objects.filter(
+            Q(first_name__icontains=search) |
+            Q(last_name__icontains=search)
+        )
