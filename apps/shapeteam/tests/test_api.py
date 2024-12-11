@@ -1,4 +1,4 @@
-import json, ipdb
+import json
 from rest_framework.test import APITestCase
 from django.urls import reverse
 from rest_framework import status
@@ -380,7 +380,6 @@ class TrainingPartnersAPITest(APITestCase):
             reverse('training-partners-list'),
             reverse('training-partners-potential'),
         ]
-        # Test each URL
         for url in urls:
             response = self.client.get(url)
             self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)

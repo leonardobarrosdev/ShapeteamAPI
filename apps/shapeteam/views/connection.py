@@ -1,14 +1,10 @@
-import json
-
-import ipdb
 from django.contrib.auth import get_user_model
 from knox.auth import TokenAuthentication
-from rest_framework import viewsets
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAuthenticated
 from apps.shapeteam.serializers import ConnectionSerializer
 from apps.shapeteam.models import Connection
-from rest_framework import viewsets, serializers, status
+from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from django.db.models import Q
