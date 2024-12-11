@@ -1,3 +1,6 @@
+import json
+
+import ipdb
 from django.contrib.auth import get_user_model
 from knox.auth import TokenAuthentication
 from rest_framework import viewsets
@@ -50,13 +53,11 @@ class TrainingPartnerAPIView(viewsets.ModelViewSet):
         Prevents duplicate requests and self-connections
         """
         receiver_id = request.data.get('receiver')
-        # Prevent self-connection
         if int(receiver_id) == request.user.id:
             return Response(
                 {"error": "You cannot send a connection request to yourself"},
                 status=status.HTTP_400_BAD_REQUEST
             )
-        # Check for existing connection
         existing_connection = Connection.objects.filter(
             Q(sender=request.user, receiver_id=receiver_id) |
             Q(receiver=request.user, sender_id=receiver_id)
@@ -73,33 +74,25 @@ class TrainingPartnerAPIView(viewsets.ModelViewSet):
         })
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
-
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     @action(detail=True, methods=['POST'])
     def accept_request(self, request, pk=None):
-        """
-        Accept a connection request
-        """
+        """Accept a connection request"""
         connection = self.get_object()
-        # Ensure the current user is the receiver
         if connection.receiver != request.user:
             return Response(
                 {"error": "You are not authorized to accept this request"},
                 status=status.HTTP_403_FORBIDDEN
             )
-        # Accept the connection
         connection.accepted = True
         connection.save()
-
         serializer = self.get_serializer(connection)
         return Response(serializer.data)
 
     @action(detail=True, methods=['DELETE'])
     def reject_request(self, request, pk=None):
-        """
-        Reject or cancel a connection request
-        """
+        """Reject or cancel a connection request"""
         connection = self.get_object()
         # Ensure the current user is either sender or receiver
         if connection.sender != request.user and connection.receiver != request.user:
@@ -107,9 +100,7 @@ class TrainingPartnerAPIView(viewsets.ModelViewSet):
                 {"error": "You are not authorized to modify this request"},
                 status=status.HTTP_403_FORBIDDEN
             )
-        # Delete the connection request
         connection.delete()
-
         return Response(
             {"message": "Connection request deleted"},
             status=status.HTTP_204_NO_CONTENT
@@ -122,7 +113,6 @@ class TrainingPartnerAPIView(viewsets.ModelViewSet):
         Excludes existing connections and the current user
         """
         search = request.query_params.get('search', '')
-        # Get existing connection partners
         existing_partners = Connection.objects.filter(
             Q(sender=request.user) | Q(receiver=request.user)
         ).values_list('sender_id', 'receiver_id')
@@ -136,6 +126,5 @@ class TrainingPartnerAPIView(viewsets.ModelViewSet):
             Q(first_name__icontains=search) |
             Q(last_name__icontains=search)
         )
-        # Serialize potential partners
         serializer = UserSerializer(potential_partners, many=True)
         return Response(serializer.data)

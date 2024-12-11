@@ -9,7 +9,7 @@ from .models import CustomUser, Address
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = ('id', 'first_name', 'email', 'gender')
+        fields = ('id', 'username', 'first_name', 'email', 'gender')
 
 
 class RegisterSerializer(serializers.ModelSerializer):

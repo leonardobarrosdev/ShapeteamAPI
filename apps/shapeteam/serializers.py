@@ -122,7 +122,7 @@ class ConnectionSerializer(serializers.ModelSerializer):
         model = Connection
         fields = ['id', 'sender', 'receiver', 'accepted', 'created', 'updated',
                   'sender_name', 'receiver_name']
-        read_only_fields = ['sender', 'accepted']
+        read_only_fields = ['accepted']
 
     def get_sender_name(self, obj):
         return obj.sender.get_full_name() or obj.sender.username
