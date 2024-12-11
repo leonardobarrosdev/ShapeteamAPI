@@ -331,14 +331,14 @@ class TrainingPartnersAPITest(APITestCase):
         self.client.login(username='testuser1', password='testpass123')
         self.client.force_authenticate(user=self.user1)
 
-    def test_training_partners_list_url(self):
+    def test_training_partners_list(self):
         Connection.objects.create(sender=self.user1, receiver=self.user2)
         Connection.objects.create(sender=self.user2, receiver=self.user1, accepted=True)
         response = self.client.get(reverse('training-partners-list'))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertTrue(self.user1.id in response.data[0].values())
 
-    def test_accept_request_url(self):
+    def test_accept_request(self):
         connection = Connection.objects.create(
             sender=self.user2,
             receiver=self.user1,
@@ -350,7 +350,7 @@ class TrainingPartnersAPITest(APITestCase):
         connection.refresh_from_db()
         self.assertTrue(connection.accepted)
 
-    def test_reject_request_url(self):
+    def test_reject_request(self):
         connection = Connection.objects.create(
             sender=self.user2,
             receiver=self.user1,
@@ -362,16 +362,15 @@ class TrainingPartnersAPITest(APITestCase):
         with self.assertRaises(Connection.DoesNotExist):
             Connection.objects.get(id=connection.id)
 
-    def test_potential_partners_url(self):
+    def test_potential_partners(self):
         """Test the potential partners URL"""
         Connection.objects.create(sender=self.user1, receiver=self.user2, accepted=True)
         url = reverse('training-partners-potential')
-        response = self.api_client.get(url, {'search': 'Alice'})
+        response = self.client.get(url, {'search': 'Alice'})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         # Check response contains potential partner
         self.assertTrue(any(
-            partner['username'] == 'testuser3'
-            for partner in response.data
+            partner['username'] == 'testuser3' for partner in response.data
         ))
 
     def test_unauthorized_access(self):
@@ -402,6 +401,6 @@ class TrainingPartnersAPITest(APITestCase):
     def test_duplicate_connection_request(self):
         """Test preventing duplicate connection requests"""
         Connection.objects.create(sender=self.user1, receiver=self.user3)
-        url = reverse('training-partners-list')
-        response = self.api_client.post(url, {'receiver': self.user3.id})
+        url = reverse('training-partners-create')
+        response = self.client.post(url, {'receiver': self.user3.id})
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
