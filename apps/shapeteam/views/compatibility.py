@@ -2,7 +2,6 @@ from knox.auth import TokenAuthentication
 from django.contrib.auth import get_user_model
 from django.db.models import Q, QuerySet
 from rest_framework import generics, viewsets
-from rest_framework.filters import BaseFilterBackend
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAuthenticated
 from apps.shapeteam.models import WeekRoutine, DayTraining
@@ -11,40 +10,16 @@ from apps.user.serializers import SearchSerializer
 
 User = get_user_model()
 
-class SmallResultsSetPagination(PageNumberPagination):
-    page_size = 5
-    page_size_query_param = 'page_size'
-    max_page_size = 100
-
-
-class FindPartnerAPIView(generics.GenericAPIView):
-    queryset = get_user_model().objects.exclude(is_superuser=True)
-    serializer_class = SearchSerializer
-    pagination_class = SmallResultsSetPagination
-    authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
-
-    def get_queryset(self):
-        assert self.queryset is not None, (
-            "'%s' should either include a `queryset` attribute, "
-            "or override the `get_queryset()` method."
-            % self.__class__.__name__
-        )
-        queryset = self.queryset
-        if isinstance(queryset, QuerySet):
-            # Ensure queryset is re-evaluated on each request.
-            queryset = queryset.all()
-        return queryset
-
 class WeekRoutineCompatibilityViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         user = self.request.user
-        week_routine = DayTraining.objects.filter(routime=user)
+        week_routine = DayTraining.objects.filter(
+            routine=WeekRoutine.user
+        )
 
-# Example 1: Basic Location-Based Filtering
+
 class UserCompatibilityViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
-        # Find users within a specific radius
         current_user = self.request.user
         max_distance = 50  # kilometers
 
@@ -146,3 +121,29 @@ class WeightedCompatibilityViewSet(viewsets.ModelViewSet):
     def physical_condition_score(self, current_user):
         # Implementation of physical condition compatibility scoring
         ...
+
+
+class SmallResultsSetPagination(PageNumberPagination):
+    page_size = 5
+    page_size_query_param = 'page_size'
+    max_page_size = 100
+
+
+class FindPartnerAPIView(generics.GenericAPIView):
+    queryset = get_user_model().objects.exclude(is_superuser=True)
+    serializer_class = SearchSerializer
+    pagination_class = SmallResultsSetPagination
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+
+    def get_queryset(self):
+        assert self.queryset is not None, (
+            "'%s' should either include a `queryset` attribute, "
+            "or override the `get_queryset()` method."
+            % self.__class__.__name__
+        )
+        queryset = self.queryset
+        if isinstance(queryset, QuerySet):
+            # Ensure queryset is re-evaluated on each request.
+            queryset = queryset.all()
+        return queryset

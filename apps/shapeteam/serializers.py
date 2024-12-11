@@ -112,3 +112,20 @@ class FriendSerializer(serializers.ModelSerializer):
 		else:
 			date = obj.latest_created or obj.updated
 		return date.isoformat()
+
+
+class ConnectionSerializer(serializers.ModelSerializer):
+    sender_name = serializers.SerializerMethodField()
+    receiver_name = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Connection
+        fields = ['id', 'sender', 'receiver', 'accepted', 'created', 'updated',
+                  'sender_name', 'receiver_name']
+        read_only_fields = ['accepted']
+
+    def get_sender_name(self, obj):
+        return obj.sender.get_full_name() or obj.sender.username
+
+    def get_receiver_name(self, obj):
+        return obj.receiver.get_full_name() or obj.receiver.username
