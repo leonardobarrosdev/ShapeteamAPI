@@ -1,3 +1,4 @@
+import ipdb
 from django.contrib.auth import authenticate
 from django.contrib.auth.password_validation import validate_password
 from django.utils.translation import gettext_lazy as _
@@ -101,9 +102,22 @@ class SearchSerializer(UserSerializer):
 
 
 class ChangePasswordSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(write_only=True, required=True, validators=[validate_password])
-    password2 = serializers.CharField(write_only=True, required=True)
-    old_password = serializers.CharField(write_only=True, required=True)
+    password = serializers.CharField(
+        write_only=True,
+        required=True,
+        validators=[validate_password],
+        help_text=_("New password. Must meet password complexity requirements.")
+    )
+    password2 = serializers.CharField(
+        write_only=True,
+        required=True,
+        help_text=_("Confirm new password by repeating it.")
+    )
+    old_password = serializers.CharField(
+        write_only=True,
+        required=True,
+        help_text=_("Current password for verification.")
+    )
 
     class Meta:
         model = CustomUser
@@ -111,13 +125,13 @@ class ChangePasswordSerializer(serializers.ModelSerializer):
 
     def validate(self, attrs):
         if attrs['password'] != attrs['password2']:
-            raise serializers.ValidationError({"password": "Password fields didn't match."})
+            raise serializers.ValidationError({"password": _("Password fields didn't match.")})
         return attrs
 
     def validate_old_password(self, value):
         user = self.context['request'].user
         if not user.check_password(value):
-            raise serializers.ValidationError({"old_password": "Old password is not correct"})
+            raise serializers.ValidationError({"old_password": _("Old password is not correct")})
         return value
 
     def update(self, instance, validated_data):

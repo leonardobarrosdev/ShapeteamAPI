@@ -71,8 +71,17 @@ class UpdateUserAPIView(UpdateAPIView):
 class ChangePasswordAPIView(UpdateAPIView):
     queryset = get_user_model().objects.all()
     serializer_class = ChangePasswordSerializer
-    authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
+
+    def update(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = request.user
+        serializer.update(user, serializer.validated_data)
+        return Response(
+            {"detail": _("Password successfully changed.")},
+            status=status.HTTP_200_OK
+        )
 
 
 class SearchUserAPIView(viewsets.ReadOnlyModelViewSet):
