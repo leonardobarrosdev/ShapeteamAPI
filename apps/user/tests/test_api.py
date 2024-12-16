@@ -128,7 +128,7 @@ class SearchUserAPITest(APITestCase):
     fixtures = ['fixtures/user/user_fixture.json']
 
     def setUp(self):
-        self.user = get_user_model()
+        self.user = get_user_model().objects.get(id=5)
         self.client.force_authenticate(user=self.user)
 
     def test_search_user(self):
