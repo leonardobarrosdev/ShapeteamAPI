@@ -1,10 +1,11 @@
-import json
-
-import ipdb
+import json, ipdb
 from django.contrib.auth import get_user_model
 from django.urls import reverse
-from rest_framework.test import APITestCase
+from rest_framework.test import APITestCase, force_authenticate
+from rest_framework.test import APIRequestFactory
 from rest_framework import status
+
+from apps.user.views import SearchUserAPIView
 
 
 class RegisterAPITest(APITestCase):
@@ -101,4 +102,10 @@ class SearchUserAPITest(APITestCase):
             data={'search': 'darty'},
             content_type='application/json'
         )
-        self.assertEqual('darty', json.loads(response.content)[0].first_name)
+        self.assertEqual('darty', json.loads(response.content)[0]['first_name'])
+
+    def test_search_user_error(self):
+        response = self.client.get(
+            reverse('user:search-users') + '?search=darty'
+        )
+        self.assertEqual('darty', json.loads(response.content)[0]['first_name'])

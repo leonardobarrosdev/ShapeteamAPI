@@ -79,15 +79,14 @@ class SearchUserAPIView(viewsets.ReadOnlyModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
     pagination_class = PageNumberPagination
 
     def get_queryset(self):
         """Search users by first name or last name"""
-        search = self.request.query_params.get('search', '')
-        if search:
-            return User.objects.filter(
-                Q(first_name__icontains=search) |
-                Q(last_name__icontains=search)
-            )
-        return User.objects.none()
+        search = self.request.query_params.get('search', None)
+        if search is None:
+            return User.objects.none()
+        return User.objects.filter(
+            Q(first_name__icontains=search) |
+            Q(last_name__icontains=search)
+        )
