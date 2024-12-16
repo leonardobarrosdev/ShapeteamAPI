@@ -5,7 +5,7 @@ The ShapeTeam project consists of developing a social network platform aimed at 
 ## 🖥️ **Technologies Usedes**
 
 - **Python3.11**: Language.
-- **Django Restframework**: To create a API.
+- **Django Rest Framework**: To create a API.
 - **PostgreSQL**: Database.
 
 ## 📁 **Diretorie Structure**
@@ -79,7 +79,7 @@ In order for you to have a development environment that is as conducive as possi
 
 ## 🌟 **Funtionalities**
 
-- **Users to Create Profiles**: Apresentação visual e elegante de Anna Bela, com links para as principais seções.
+- **Users to Create Profiles**
 - **Find workout partners with similar interests**
 - **Schedule workout sessions**
 - **share experiences**

@@ -1,4 +1,6 @@
 import json
+
+import ipdb
 from django.contrib.auth import get_user_model
 from django.urls import reverse
 from rest_framework.test import APITestCase
@@ -84,3 +86,19 @@ class UpdateUserAPITest(APITestCase):
             content_type='application/json'
         )
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+
+class SearchUserAPITest(APITestCase):
+    fixtures = ['fixtures/user/user_fixture.json']
+
+    def setUp(self):
+        self.user = get_user_model()
+        self.client.force_authenticate(user=self.user)
+
+    def test_search_user(self):
+        response = self.client.get(
+            reverse('user:search-users'),
+            data={'search': 'darty'},
+            content_type='application/json'
+        )
+        self.assertEqual('darty', json.loads(response.content)[0].first_name)

@@ -75,17 +75,19 @@ class ChangePasswordAPIView(UpdateAPIView):
     permission_classes = (IsAuthenticated,)
 
 
-class SearchUserAPIView(viewsets.ModelViewSet):
+class SearchUserAPIView(viewsets.ReadOnlyModelViewSet):
     queryset = User.objects.all()
-    serializers_class = UserSerializer
+    serializer_class = UserSerializer
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
     pagination_class = PageNumberPagination
 
     def get_queryset(self):
         """Search users by first name or last name"""
-        search = self.request.query_params['search', '']
-        return User.objects.filter(
-            Q(first_name__icontains=search) |
-            Q(last_name__icontains=search)
-        )
+        search = self.request.query_params.get('search', '')
+        if search:
+            return User.objects.filter(
+                Q(first_name__icontains=search) |
+                Q(last_name__icontains=search)
+            )
+        return User.objects.none()
