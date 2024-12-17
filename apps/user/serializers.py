@@ -47,10 +47,13 @@ class RegisterSerializer(serializers.ModelSerializer):
 
 
 class UpdateUserSerializer(serializers.ModelSerializer):
+    email = serializers.EmailField(required=False)
+
     class Meta:
         model = CustomUser
-        fields = '__all__'
-        excludes = ['id', 'is_staff', 'is_activa', 'date_joined']
+        fields = [
+            'username', 'first_name', 'last_name', 'thumbnail', 'email', 'gender', 'weight', 'date_birth', 'level', 'goal'
+        ]
 
     def validate_email(self, value):
         user = self.context['request'].user

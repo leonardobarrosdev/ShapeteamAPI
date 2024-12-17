@@ -64,8 +64,25 @@ class LoginAPIView(knox_views.LoginView):
 class UpdateUserAPIView(UpdateAPIView):
     queryset = get_user_model().objects.all()
     serializer_class = UpdateUserSerializer
-    authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
+
+    def update(self, request, *args, **kwargs):
+        if request.user.id != kwargs['pk']:
+            return Response(
+                {'detail': _("Isn't possible update other user")},
+                status=status.HTTP_401_UNAUTHORIZED
+            )
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = request.user
+        serializer.update(user, serializer.validated_data)
+        return Response(
+            {
+                "user": UpdateUserSerializer(user).data,
+                "detail": _("Successfully updated.")
+            },
+            status=status.HTTP_200_OK
+        )
 
 
 class ChangePasswordAPIView(UpdateAPIView):

@@ -1,4 +1,6 @@
 import json
+
+import ipdb
 from django.contrib.auth import get_user_model
 from django.urls import reverse
 from rest_framework.test import APITestCase
@@ -75,7 +77,7 @@ class UpdateUserAPITest(APITestCase):
         )
         self.user.refresh_from_db()
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data['last_name'], 'Doe')
+        self.assertEqual(response.data['user']['last_name'], 'Doe')
 
     def test_update_user_error(self):
         response = self.client.put(
