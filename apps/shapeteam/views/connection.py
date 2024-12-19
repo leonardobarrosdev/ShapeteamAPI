@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+from django.utils.translation import gettext_lazy as _
 from knox.auth import TokenAuthentication
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAuthenticated
@@ -51,7 +52,7 @@ class TrainingPartnerAPIView(viewsets.ModelViewSet):
         receiver_id = request.data.get('receiver')
         if int(receiver_id) == request.user.id:
             return Response(
-                {"error": "You cannot send a connection request to yourself"},
+                {"error": _("You cannot send a connection request to yourself")},
                 status=status.HTTP_400_BAD_REQUEST
             )
         existing_connection = Connection.objects.filter(
@@ -60,7 +61,7 @@ class TrainingPartnerAPIView(viewsets.ModelViewSet):
         ).exists()
         if existing_connection:
             return Response(
-                {"error": "Connection request already exists"},
+                {"error": _("Connection request already exists")},
                 status=status.HTTP_400_BAD_REQUEST
             )
         # Create new connection request
@@ -78,7 +79,7 @@ class TrainingPartnerAPIView(viewsets.ModelViewSet):
         connection = self.get_object()
         if connection.receiver != request.user:
             return Response(
-                {"error": "You are not authorized to accept this request"},
+                {"error": _("You are not authorized to accept this request")},
                 status=status.HTTP_403_FORBIDDEN
             )
         connection.accepted = True
@@ -90,15 +91,14 @@ class TrainingPartnerAPIView(viewsets.ModelViewSet):
     def reject_request(self, request, pk=None):
         """Reject or cancel a connection request"""
         connection = self.get_object()
-        # Ensure the current user is either sender or receiver
         if connection.sender != request.user and connection.receiver != request.user:
             return Response(
-                {"error": "You are not authorized to modify this request"},
+                {"error": _("You are not authorized to modify this request")},
                 status=status.HTTP_403_FORBIDDEN
             )
         connection.delete()
         return Response(
-            {"message": "Connection request deleted"},
+            {"message": _("Connection request deleted")},
             status=status.HTTP_204_NO_CONTENT
         )
 

@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     'knox',
     # Apps
     'apps.user',
-    'apps.chat',
+    # 'apps.chat',
     'apps.shapeteam',
 ]
 

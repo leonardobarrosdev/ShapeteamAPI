@@ -7,17 +7,47 @@ from apps.shapeteam.serializers import *
 
 PATH = 'fixtures/shapeteam'
 
+class MuscleGroupAPITest(APITestCase):
+    fixtures = [
+        'fixtures/user/user_fixture.json',
+        f'{PATH}/muscle_group_fixture.json',
+        f'{PATH}/exercise_fixture.json',
+    ]
+
+    def setUp(self):
+        self.user = get_user_model().objects.get(pk=2)
+        self.client.force_authenticate(user=self.user)
+
+    def test_list_name_exercises_success(self):
+        response = self.client.get(reverse('muscle-group'))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data), 10)
+
+    def test_list_name_exercises_error(self):
+        self.client.logout()
+        response = self.client.get(reverse('muscle-group'))
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+
 class ExerciseAPITest(APITestCase):
     fixtures = [
         'fixtures/user/user_fixture.json',
+        f'{PATH}/muscle_group_fixture.json',
         f'{PATH}/exercise_fixture.json',
-        f'{PATH}/name_exercise_fixture.json'
     ]
 
     def setUp(self):
         self.user = get_user_model().objects.get(pk=1)
         self.client.force_authenticate(user=self.user)
-        self.data = {"name_exe": 1, "default_sets": 3, "default_reps": 10}
+        self.data = {
+            "muscle_group": 3,
+            "name": "Legs",
+            "description": "Quadriceps, hamstrings, calves, and glutes.",
+            "repetition": 20,
+            "section": 3,
+            "duration": "00:07:00",
+            "finished": False
+        }
 
     def test_create_exercise_success(self):
         response = self.client.post(
@@ -30,7 +60,7 @@ class ExerciseAPITest(APITestCase):
     
     def test_create_exercise_error(self):
         data = self.data.copy()
-        del data['name_exe']
+        del data['name']
         response = self.client.post(
             reverse('exercise-list'),
             data=json.dumps(data),
@@ -41,7 +71,7 @@ class ExerciseAPITest(APITestCase):
     def test_update_exercise_success(self):
         exercise = Exercise.objects.get(pk=1)
         data = self.data.copy()
-        data['default_sets'] = 5
+        data['section'] = 5
         response = self.client.put(
             reverse('exercise-detail', kwargs={'pk': str(exercise.pk)}),
             data=json.dumps(data),
@@ -54,7 +84,7 @@ class ExerciseAPITest(APITestCase):
     def test_update_exercise_error(self):
         exercise = Exercise.objects.get(pk=1)
         data = self.data.copy()
-        del data['name_exe']
+        del data['name']
         response = self.client.put(
             reverse('exercise-detail', kwargs={'pk': str(exercise.pk)}),
             data=json.dumps(data),
@@ -85,44 +115,6 @@ class ExerciseAPITest(APITestCase):
         self.client.logout()
         response = self.client.get(reverse('exercise-list'))
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
-
-
-class NameExerciseAPITest(APITestCase):
-    fixtures = [
-        'fixtures/user/user_fixture.json',
-        f'{PATH}/name_exercise_fixture.json'
-    ]
-
-    def setUp(self):
-        self.user = get_user_model().objects.get(pk=2)
-        self.client.force_authenticate(user=self.user)
-
-    def test_list_name_exercises_success(self):
-        response = self.client.get(reverse('nameexercise-list'))
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data), 16)
-    
-    def test_list_name_exercises_error(self):
-        self.client.logout()
-        response = self.client.get(reverse('nameexercise-list'))
-        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
-    
-    def test_create_name_exercise_success(self):
-        response = self.client.post(
-            reverse('nameexercise-list'),
-            data=json.dumps({"name": "New Name"}),
-            content_type='application/json'
-        )
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(NameExercise.objects.count(), 17)
-
-    def test_create_name_exercise_error(self):
-        response = self.client.post(
-            reverse('nameexercise-list'),
-            data=json.dumps({"name": ""}),
-            content_type='application/json'
-        )
-        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
 
 class DayExerciseAPITest(APITestCase):

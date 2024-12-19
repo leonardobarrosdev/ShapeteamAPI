@@ -1,0 +1,92 @@
+[
+    {
+        "model": "shapeteam.musclegroup",
+        "pk": 1,
+        "fields": {
+            "name": "Chest",
+            "description": "The chest muscles, primarily the pectoralis major and minor, are crucial for upper body strength and pushing movements.",
+            "photo": "muscle_groups/chest.jpg"
+        }
+    },
+    {
+        "model": "shapeteam.musclegroup",
+        "pk": 2,
+        "fields": {
+            "name": "Back",
+            "description": "The back muscles include the latissimus dorsi, trapezius, and rhomboids, essential for pulling movements and posture.",
+            "photo": "muscle_groups/back.jpg"
+        }
+    },
+    {
+        "model": "shapeteam.musclegroup",
+        "pk": 3,
+        "fields": {
+            "name": "Legs",
+            "description": "Leg muscles including quadriceps, hamstrings, calves, and glutes are critical for lower body strength and mobility.",
+            "photo": "muscle_groups/legs.jpg"
+        }
+    },
+    {
+        "model": "shapeteam.musclegroup",
+        "pk": 4,
+        "fields": {
+            "name": "Shoulders",
+            "description": "Shoulder muscles, including the deltoids, are vital for upper body mobility and overhead movements.",
+            "photo": "muscle_groups/shoulders.jpg"
+        }
+    },
+    {
+        "model": "shapeteam.musclegroup",
+        "pk": 5,
+        "fields": {
+            "name": "Arms",
+            "description": "Arm muscles including biceps, triceps, and forearms are essential for pulling, pushing, and grip strength.",
+            "photo": "muscle_groups/arms.jpg"
+        }
+    },
+    {
+        "model": "shapeteam.musclegroup",
+        "pk": 6,
+        "fields": {
+            "name": "Core",
+            "description": "Core muscles including abdominals and lower back are crucial for stability, posture, and overall body strength.",
+            "photo": "muscle_groups/core.jpg"
+        }
+    },
+    {
+        "model": "shapeteam.musclegroup",
+        "pk": 7,
+        "fields": {
+            "name": "Glutes",
+            "description": "Gluteal muscles are key for hip extension, rotation, and are critical in lower body power generation and stability.",
+            "photo": "muscle_groups/glutes.jpg"
+        }
+    },
+    {
+        "model": "shapeteam.musclegroup",
+        "pk": 8,
+        "fields": {
+            "name": "Forearms",
+            "description": "Forearm muscles control wrist and finger movements, crucial for grip strength and fine motor skills in various exercises.",
+            "photo": "muscle_groups/forearms.jpg"
+        }
+    },
+    {
+        "model": "shapeteam.musclegroup",
+        "pk": 9,
+        "fields": {
+            "name": "Calves",
+            "description": "Calf muscles are essential for ankle movement, jumping, and provide stability during walking, running, and various lower body exercises.",
+            "photo": "muscle_groups/calves.jpg"
+        }
+    },
+    {
+        "model": "shapeteam.musclegroup",
+        "pk": 10,
+        "fields": {
+            "name": "Neck",
+            "description": "Neck muscles support head movement, maintain posture, and play a critical role in stabilizing the cervical spine during physical activities.",
+            "photo": "muscle_groups/neck.jpg"
+        }
+    }
+]

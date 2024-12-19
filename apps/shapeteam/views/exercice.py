@@ -1,20 +1,11 @@
 from knox.auth import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import generics
-from ..models import Exercise, ExerciseRanking, NameExercise
+from ..models import Exercise, ExerciseRanking
 from ..serializers import (
     ExerciseSerializer,
     ExerciseRankingSerializer,
-    NameExerciseSerializer
 )
-
-
-class NameExerciseAPIView(generics.ListCreateAPIView):
-    queryset = NameExercise.objects.all()
-    serializer_class = NameExerciseSerializer
-    authentication_classes = (TokenAuthentication,)
-    permission_classes = [IsAuthenticated]
-    permissions = ['add_name_exercise', 'view_name_exercise']
 
 
 class ExercisesAPIView(generics.ListCreateAPIView):

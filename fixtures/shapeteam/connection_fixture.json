@@ -5,8 +5,8 @@
         "sender": 4,
         "receiver": 5,
         "accepted": true,
-        "updated": "2024-09-17T02:29:56.224Z",
-        "created": "2024-09-17T02:29:56.224Z"
+        "updated_at": "2024-09-17T02:29:56.224Z",
+        "created_at": "2024-09-17T02:29:56.224Z"
     }
 },
 {
@@ -16,8 +16,8 @@
         "sender": 1,
         "receiver": 2,
         "accepted": false,
-        "updated": "2024-09-18T02:29:56.224Z",
-        "created": "2024-09-18T02:29:56.224Z"
+        "updated_at": "2024-09-18T02:29:56.224Z",
+        "created_at": "2024-09-18T02:29:56.224Z"
     }
 },
 {
@@ -27,8 +27,8 @@
         "sender": 3,
         "receiver": 6,
         "accepted": true,
-        "updated": "2024-09-19T02:29:56.224Z",
-        "created": "2024-09-19T02:29:56.224Z"
+        "updated_at": "2024-09-19T02:29:56.224Z",
+        "created_at": "2024-09-19T02:29:56.224Z"
     }
 },
 {
@@ -38,8 +38,8 @@
         "sender": 8,
         "receiver": 7,
         "accepted": false,
-        "updated": "2024-09-20T02:29:56.224Z",
-        "created": "2024-09-20T02:29:56.224Z"
+        "updated_at": "2024-09-20T02:29:56.224Z",
+        "created_at": "2024-09-20T02:29:56.224Z"
     }
 },
 {
@@ -49,8 +49,8 @@
         "sender": 5,
         "receiver": 6,
         "accepted": true,
-        "updated": "2024-09-21T02:29:56.224Z",
-        "created": "2024-09-21T02:29:56.224Z"
+        "updated_at": "2024-09-21T02:29:56.224Z",
+        "created_at": "2024-09-21T02:29:56.224Z"
     }
 },
 {
@@ -60,8 +60,8 @@
         "sender": 6,
         "receiver": 5,
         "accepted": false,
-        "updated": "2024-09-22T02:29:56.224Z",
-        "created": "2024-09-22T02:29:56.224Z"
+        "updated_at": "2024-09-22T02:29:56.224Z",
+        "created_at": "2024-09-22T02:29:56.224Z"
     }
 },
 {
@@ -71,8 +71,8 @@
         "sender": 7,
         "receiver": 4,
         "accepted": true,
-        "updated": "2024-09-23T02:29:56.224Z",
-        "created": "2024-09-23T02:29:56.224Z"
+        "updated_at": "2024-09-23T02:29:56.224Z",
+        "created_at": "2024-09-23T02:29:56.224Z"
     }
 },
 {
@@ -82,8 +82,8 @@
         "sender": 8,
         "receiver": 3,
         "accepted": false,
-        "updated": "2024-09-24T02:29:56.224Z",
-        "created": "2024-09-24T02:29:56.224Z"
+        "updated_at": "2024-09-24T02:29:56.224Z",
+        "created_at": "2024-09-24T02:29:56.224Z"
     }
 },
 {
@@ -93,8 +93,8 @@
         "sender": 9,
         "receiver": 2,
         "accepted": true,
-        "updated": "2024-09-25T02:29:56.224Z",
-        "created": "2024-09-25T02:29:56.224Z"
+        "updated_at": "2024-09-25T02:29:56.224Z",
+        "created_at": "2024-09-25T02:29:56.224Z"
     }
 },
 {
@@ -104,7 +104,7 @@
         "sender": 10,
         "receiver": 1,
         "accepted": false,
-        "updated": "2024-09-26T02:29:56.224Z",
-        "created": "2024-09-26T02:29:56.224Z"
+        "updated_at": "2024-09-26T02:29:56.224Z",
+        "created_at": "2024-09-26T02:29:56.224Z"
     }
 }]

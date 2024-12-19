@@ -1,20 +1,20 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
+from apps.user.models import Address
+
 
 User = get_user_model()
 
 def upload_photos(instance, filename):
-    path = f'photos/{instance.name}'
+    path = f'muscle_groups/{instance.name}.'
     extension = filename.split('.')[-1]
-    if extension:
-        path = path + '.' + extension
+    path += extension if extension else 'webp'
     return path
 
-class NameExercise(models.Model):
+class MuscleGroup(models.Model):
     name = models.CharField(max_length=100, unique=True)
     description = models.TextField(null=True, blank=True)
-    muscle_group = models.CharField(max_length=50, default="muscle_group")
     photo = models.ImageField(upload_to=upload_photos, null=True, blank=True)
     
     def __str__(self):
@@ -22,9 +22,13 @@ class NameExercise(models.Model):
 
 
 class Exercise(models.Model):
-    name_exe = models.ForeignKey(NameExercise, related_name='exercises', on_delete=models.CASCADE)   
-    default_reps = models.IntegerField() # repetitions
-    default_sets = models.IntegerField() # sections
+    muscle_group = models.ForeignKey(MuscleGroup, on_delete=models.CASCADE)
+    name = models.CharField(max_length=60)
+    description = models.TextField(null=True, blank=True)
+    repetition = models.IntegerField()
+    section = models.IntegerField()
+    duration = models.DurationField()
+    finished = models.BooleanField(default=False)
 
 
 class DayTraining(models.Model):
@@ -46,27 +50,9 @@ class DayTraining(models.Model):
         verbose_name_plural = _("Day Trainings")
 
 
-class DayExercise(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    exercise = models.ForeignKey(Exercise, on_delete=models.CASCADE)
-    reps = models.IntegerField()
-    sets = models.IntegerField()
-    duration = models.DurationField()
-
-    class Meta:
-        verbose_name = _("Day Exercise")
-        verbose_name_plural = _("Day Exercises")
-
-
 class WeekRoutine(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    monday = models.ManyToManyField(DayTraining, related_name='monday_routine', blank=True)
-    tuesday = models.ManyToManyField(DayTraining, related_name='tuesday_routine', blank=True)
-    wednesday = models.ManyToManyField(DayTraining, related_name='wednesday_routine', blank=True)
-    thursday = models.ManyToManyField(DayTraining, related_name='thursday_routine', blank=True)
-    friday = models.ManyToManyField(DayTraining, related_name='friday_routine', blank=True)
-    saturday = models.ManyToManyField(DayTraining, related_name='saturday_routine', blank=True)
-    sunday = models.ManyToManyField(DayTraining, related_name='sunday_routine', blank=True)
+    days_training = models.ManyToManyField(DayTraining, verbose_name=_("Days training"))
     
     class Meta:
         verbose_name = _("Week Routine")
@@ -75,9 +61,9 @@ class WeekRoutine(models.Model):
 
 class ExerciseRanking(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    exercise = models.ForeignKey(Exercise, on_delete=models.CASCADE)
+    muscle_group = models.ForeignKey(MuscleGroup, on_delete=models.CASCADE)
     score = models.IntegerField()
-    update = models.DateTimeField(auto_now=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         verbose_name = _("Exercise Ranking")
@@ -86,7 +72,7 @@ class ExerciseRanking(models.Model):
 
 class Gym(models.Model):
     name = models.CharField(max_length=120) 
-    location = models.CharField(max_length=255)
+    location = models.ForeignKey(Address, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = _("Gym")
@@ -94,27 +80,17 @@ class Gym(models.Model):
 
 
 class Connection(models.Model):
-	sender = models.ForeignKey(
-		User,
-		related_name='sent_connections',
-		on_delete=models.CASCADE
-	)
-	receiver = models.ForeignKey(
-		User,
-		related_name='received_connections',
-		on_delete=models.CASCADE
-	)
-	accepted = models.BooleanField(default=False)
-	updated = models.DateTimeField(auto_now=True)
-	created = models.DateTimeField(auto_now_add=True)
+    sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sent_connections')
+    receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name='received_connections')
+    accepted = models.BooleanField(default=False)
+    updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
-	def __str__(self):
-		return self.sender.first_name + ' -> ' + self.receiver.first_name
-
-
-class Level(models.Model):
-    name = models.CharField(max_length=60, default='Basic')
-    description = models.TextField(null=True, blank=True)
+    def __str__(self):
+        patner = ' pendding '
+        if self.accepted == True:
+            patner = ' is patner of '
+        return self.sender.first_name + patner + self.receiver.first_name
 
 
 class Goal(models.Model):

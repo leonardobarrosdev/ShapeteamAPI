@@ -3,15 +3,13 @@ from . import views
 from .views.connection import TrainingPartnerAPIView
 
 urlpatterns = [
-    path('nameexercises/', views.NameExerciseAPIView.as_view(), name='nameexercise-list'),
     path('exercises/', views.ExercisesAPIView.as_view(), name='exercise-list'),
     path('exercises/<int:pk>/', views.ExerciseAPIView.as_view(), name='exercise-detail'),
     path('exerciserankings/', views.ExercisesRankingAPIView.as_view(), name='exerciseranking-list'),
     path('exerciserankings/<int:pk>/', views.ExerciseRankingAPIView.as_view(), name='exerciseranking-detail'),
-    path('dayexercises/', views.DayExercisesAPIView.as_view(), name='dayexercise-list'),
-    path('dayexercises/<int:pk>/', views.DayExerciseAPIView.as_view(), name='dayexercise-detail'),
     path('gyms/', views.GymsAPIView.as_view(), name='gym-list'),
-    path('gyms/<int:pk>/',views.GymAPIView.as_view(), name='gym-detail'),
+    path('gyms/<int:pk>/', views.GymAPIView.as_view(), name='gym-detail'),
+    path('muscle-groups/', views.MuscleGroupAPIView.as_view(),name='muscle-group'),
     re_path(
         r'^training-partners/$',
         TrainingPartnerAPIView.as_view({'get': 'list'}),

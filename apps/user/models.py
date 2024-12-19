@@ -43,21 +43,18 @@ class UserManager(BaseUserManager):
 
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
-    GENDER_CHOICES = (
-        (1, 'male'),
-        (2, 'female'),
-        (3, 'other')
-    )
+    GENDERS = ((1, 'male'), (2, 'female'), (3, 'other'))
+    LEVELS = ((1, 'basic'), (2, 'medium'), (3, 'advanced'))
     username = models.CharField(max_length=30, default="name")
     first_name = models.CharField(max_length=80, blank=True, null=True)
     last_name = models.CharField(max_length=120, blank=True, null=True)
     thumbnail = models.ImageField(upload_to=upload_thumbnail, null=True, blank=True)
     email = models.EmailField(max_length=254, unique=True)
-    gender = models.SmallIntegerField(choices=GENDER_CHOICES, blank=True, null=True)
+    gender = models.SmallIntegerField(choices=GENDERS, blank=True, null=True)
     height = models.FloatField(blank=True, null=True)
     weight = models.FloatField(blank=True, null=True)
     date_birth = models.DateField(blank=True, null=True)
-    level = models.ForeignKey('shapeteam.Level', on_delete=models.SET_NULL, blank=True, null=True)
+    level = models.SmallIntegerField(choices=LEVELS, default=1)
     goal = models.ForeignKey('shapeteam.Goal', on_delete=models.SET_NULL, blank=True, null=True)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)

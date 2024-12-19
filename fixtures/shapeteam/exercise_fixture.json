@@ -1,90 +1,132 @@
-[{
-    "model": "shapeteam.exercise",
-    "pk": 1,
-    "fields": {
-        "name_exe": 10,
-        "default_reps": 11,
-        "default_sets": 3
+[
+    {
+        "model": "shapeteam.exercise",
+        "pk": 1,
+        "fields": {
+            "muscle_group": 1,
+            "name": "Chest",
+            "description": "primarily the pectoralis major and minor",
+            "repetition": 11,
+            "section": 1,
+            "duration": "00:05:00",
+            "finished": false
+        }
+    },
+    {
+        "model": "shapeteam.exercise",
+        "pk": 2,
+        "fields": {
+            "muscle_group": 5,
+            "name": "Calf",
+            "description": "Top and down movements",
+            "repetition": 15,
+            "section": 2,
+            "duration": "00:06:00",
+            "finished": false
+        }
+    },
+    {
+        "model": "shapeteam.exercise",
+        "pk": 3,
+        "fields": {
+            "muscle_group": 3,
+            "name": "Legs",
+            "description": "Quadriceps, hamstrings, calves, and glutes.",
+            "repetition": 20,
+            "section": 3,
+            "duration": "00:07:00",
+            "finished": false
+        }
+    },
+    {
+        "model": "shapeteam.exercise",
+        "pk": 4,
+        "fields": {
+            "muscle_group": 7,
+            "name": "Exercise 7",
+            "description": "Exercise 7 description",
+            "repetition": 25,
+            "section": 4,
+            "duration": "00:08:00",
+            "finished": false
+        }
+    },
+    {
+        "model": "shapeteam.exercise",
+        "pk": 5,
+        "fields": {
+            "muscle_group": 6,
+            "name": "Exercise 6",
+            "description": "Exercise 6 description",
+            "repetition": 30,
+            "section": 5,
+            "duration": "00:09:00",
+            "finished": true
+        }
+    },
+    {
+        "model": "shapeteam.exercise",
+        "pk": 6,
+        "fields": {
+            "muscle_group": 9,
+            "name": "Exercise 5",
+            "description": "Exercise 5 description",
+            "repetition": 35,
+            "section": 6,
+            "duration": "00:10:00",
+            "finished": true
+        }
+    },
+    {
+        "model": "shapeteam.exercise",
+        "pk": 7,
+        "fields": {
+            "muscle_group": 2,
+            "name": "Back",
+            "description": "latissimus dorsi, trapezius, and rhomboids",
+            "repetition": 40,
+            "section": 7,
+            "duration": "00:11:00",
+            "finished": false
+        }
+    },
+    {
+        "model": "shapeteam.exercise",
+        "pk": 8,
+        "fields": {
+            "muscle_group": 4,
+            "name": "Shoulders",
+            "description": "Including the deltoids, are vital for upper body mobility.",
+            "repetition": 45,
+            "section": 8,
+            "duration": "00:12:00",
+            "finished": false
+        }
+    },
+    {
+        "model": "shapeteam.exercise",
+        "pk": 9,
+        "fields": {
+            "muscle_group": 1,
+            "name": "Exercise 2",
+            "description": "Exercise 2 description",
+            "repetition": 50,
+            "section": 9,
+            "duration": "00:13:00",
+            "finished": false
+        }
+    },
+    {
+        "model": "shapeteam.exercise",
+        "pk": 10,
+        "fields": {
+            "muscle_group": 6,
+            "name": "Exercise 1",
+            "description": "Exercise 1 description",
+            "repetition": 55,
+            "section": 10,
+            "duration": "00:14:00",
+            "finished": false
+        }
     }
-},
-{
-    "model": "shapeteam.exercise",
-    "pk": 2,
-    "fields": {
-        "name_exe": 9,
-        "default_reps": 15,
-        "default_sets": 4
-    }
-},
-{
-    "model": "shapeteam.exercise",
-    "pk": 3,
-    "fields": {
-        "name_exe": 8,
-        "default_reps": 20,
-        "default_sets": 5
-    }
-},
-{
-    "model": "shapeteam.exercise",
-    "pk": 4,
-    "fields": {
-        "name_exe": 7,
-        "default_reps": 25,
-        "default_sets": 6
-    }
-},
-{
-    "model": "shapeteam.exercise",
-    "pk": 5,
-    "fields": {
-        "name_exe": 6,
-        "default_reps": 30,
-        "default_sets": 7
-    }
-},
-{
-    "model": "shapeteam.exercise",
-    "pk": 6,
-    "fields": {
-        "name_exe": 5,
-        "default_reps": 35,
-        "default_sets": 8
-    }
-},
-{
-    "model": "shapeteam.exercise",
-    "pk": 7,
-    "fields": {
-        "name_exe": 4,
-        "default_reps": 40,
-        "default_sets": 9
-    }
-},
-{
-    "model": "shapeteam.exercise",
-    "pk": 8,
-    "fields": {
-        "name_exe": 3,
-        "default_reps": 45,
-        "default_sets": 10
-    }
-},
-{
-    "model": "shapeteam.exercise",
-    "pk": 9,
-    "fields": {
-        "name_exe": 2,
-        "default_reps": 50,
-        "default_sets": 11
-    }
-},
-{
-    "model": "shapeteam.exercise",
-    "pk": 10,
-    "fields": {
-        "name_exe": 1,
-        "default_reps": 55,
-        "default_sets": 12
-    }
-}]
+]

@@ -8,7 +8,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('apps.user.urls')),
     path('', include('apps.shapeteam.urls')),
-    path('chats/', include('apps.chat.urls')),
+    # path('chats/', include('apps.chat.urls')),
     path('api-auth/', include('rest_framework.urls')),
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 
