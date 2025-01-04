@@ -11,6 +11,7 @@ from rest_framework.response import Response
 from django.db.models import Q
 from apps.user.serializers import UserSerializer
 
+
 User = get_user_model()
 
 class TrainingPartnerAPIView(viewsets.ModelViewSet):

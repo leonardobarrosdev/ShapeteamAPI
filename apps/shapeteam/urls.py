@@ -9,7 +9,11 @@ urlpatterns = [
     path('exerciserankings/<int:pk>/', views.ExerciseRankingAPIView.as_view(), name='exerciseranking-detail'),
     path('gyms/', views.GymsAPIView.as_view(), name='gym-list'),
     path('gyms/<int:pk>/', views.GymAPIView.as_view(), name='gym-detail'),
-    path('muscle-groups/', views.MuscleGroupAPIView.as_view(),name='muscle-group'),
+    path('muscle-groups/', views.MuscleGroupsAPIView.as_view(), name='muscle-group-list'),
+    path('week-routines/', views.WeekRoutinesAPIView.as_view(), name='week-routine-list'),
+    path('week-routines/<int:pk>/', views.WeekRoutineAPIView.as_view(), name='week-routine-detail'),
+    path('day-trainings/', views.DayTrainingsAPIView.as_view(), name='day-training-list'),
+    path('day-training/<int:pk>/', views.DayTrainingAPIView.as_view(), name='day-training-detail'),
     re_path(
         r'^training-partners/$',
         TrainingPartnerAPIView.as_view({'get': 'list'}),

@@ -26,14 +26,13 @@ class ExerciseSerializer(serializers.ModelSerializer):
 class DayTrainingSerializer(serializers.ModelSerializer):
     class Meta:
         model = DayTraining
-        fields = ('routine', 'weekday', 'exercises')
+        fields = '__all__'
 
 
 class ExerciseRankingSerializer(serializers.ModelSerializer):
     class Meta:
         model = ExerciseRanking
-        fields = '__all__'
-        exclude = 'updated_at'
+        exclude = ('updated_at',)
 
 
 class GymSerializer(serializers.ModelSerializer):
@@ -52,10 +51,13 @@ class RequestSerializer(serializers.ModelSerializer):
 
 
 class ConnectionSerializer(serializers.ModelSerializer):
-    sender_name = serializers.SerializerMethodField()
-    receiver_name = serializers.SerializerMethodField()
-
     class Meta:
         model = Connection
         fields = '__all__'
-        read_only_fields = 'accepted'
+        read_only_fields = ('accepted',)
+
+
+class WeekRoutineSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = WeekRoutine
+        fields = '__all__'

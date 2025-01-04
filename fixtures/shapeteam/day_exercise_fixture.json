@@ -4,9 +4,10 @@
     "fields": {
         "user": 8,
         "exercise": 1,
-        "reps": 3,
-        "sets": 15,
-        "duration": "-1 19:00:00"
+        "repetition": 3,
+        "section": 15,
+        "duration": "-1 19:00:00",
+        "finished": false
     }
 },
 {
@@ -15,9 +16,10 @@
     "fields": {
         "user": 3,
         "exercise": 2,
-        "reps": 3,
-        "sets": 15,
-        "duration": "-1 19:00:00"
+        "repetition": 3,
+        "section": 15,
+        "duration": "-1 19:00:00",
+        "finished": false
     }
 },
 {
@@ -26,8 +28,9 @@
     "fields": {
         "user": 2,
         "exercise": 3,
-        "reps": 3,
-        "sets": 15,
-        "duration": "-1 19:00:00"
+        "repetition": 3,
+        "section": 15,
+        "duration": "-1 19:00:00",
+        "finished": true
     }
 }]

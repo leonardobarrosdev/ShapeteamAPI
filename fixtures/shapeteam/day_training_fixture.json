@@ -2,10 +2,9 @@
     "model": "shapeteam.daytraining",
     "pk": 1,
     "fields": {
-        "routine": 8,
         "weekday": "monday",
         "exercises": [
-            1
+            3
         ]
     }
 },
@@ -13,7 +12,6 @@
     "model": "shapeteam.daytraining",
     "pk": 2,
     "fields": {
-        "routine": 7,
         "weekday": "monday",
         "exercises": [
             1
@@ -24,7 +22,6 @@
     "model": "shapeteam.daytraining",
     "pk": 3,
     "fields": {
-        "routine": 6,
         "weekday": "sunday",
         "exercises": [
             1
@@ -35,7 +32,6 @@
     "model": "shapeteam.daytraining",
     "pk": 4,
     "fields": {
-        "routine": 6,
         "weekday": "sunday",
         "exercises": [
             6, 9
@@ -46,7 +42,6 @@
     "model": "shapeteam.daytraining",
     "pk": 5,
     "fields": {
-        "routine": 6,
         "weekday": "sunday",
         "exercises": [
             7
@@ -57,7 +52,6 @@
     "model": "shapeteam.daytraining",
     "pk": 6,
     "fields": {
-        "routine": 6,
         "weekday": "sunday",
         "exercises": [
             7
@@ -68,7 +62,6 @@
     "model": "shapeteam.daytraining",
     "pk": 7,
     "fields": {
-        "routine": 6,
         "weekday": "sunday",
         "exercises": [
             1, 7
@@ -79,7 +72,6 @@
     "model": "shapeteam.daytraining",
     "pk": 8,
     "fields": {
-        "routine": 6,
         "weekday": "sunday",
         "exercises": [
             7
@@ -90,7 +82,6 @@
     "model": "shapeteam.daytraining",
     "pk": 9,
     "fields": {
-        "routine": 6,
         "weekday": "sunday",
         "exercises": [
             4, 8
@@ -101,7 +92,6 @@
     "model": "shapeteam.daytraining",
     "pk": 10,
     "fields": {
-        "routine": 6,
         "weekday": "sunday",
         "exercises": [
             2, 5
