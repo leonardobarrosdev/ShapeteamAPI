@@ -10,6 +10,3 @@ class MuscleGroupsAPIView(ListAPIView):
     serializer_class = MuscleGroupSerializer
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
-
-    def get_queryset(self):
-        return MuscleGroup.objects.filter(user=self.request.user)

@@ -1,0 +1,92 @@
+[
+    {
+        "model": "shapeteam.daytraining",
+        "pk": 1,
+        "fields": {
+            "weekday": "monday",
+            "muscle_group": [3],
+            "week_routine": 1
+        }
+    },
+    {
+        "model": "shapeteam.daytraining",
+        "pk": 2,
+        "fields": {
+            "weekday": "monday",
+            "muscle_group": [1],
+            "week_routine": 1
+        }
+    },
+    {
+        "model": "shapeteam.daytraining",
+        "pk": 3,
+        "fields": {
+            "weekday": "sunday",
+            "muscle_group": [1, 2, 3],
+            "week_routine": 7
+        }
+    },
+    {
+        "model": "shapeteam.daytraining",
+        "pk": 4,
+        "fields": {
+            "weekday": "sunday",
+            "muscle_group": [6, 9],
+            "week_routine": 1
+        }
+    },
+    {
+        "model": "shapeteam.daytraining",
+        "pk": 5,
+        "fields": {
+            "weekday": "sunday",
+            "muscle_group": [7, 5, 6],
+            "week_routine": 7
+        }
+    },
+    {
+        "model": "shapeteam.daytraining",
+        "pk": 6,
+        "fields": {
+            "weekday": "sunday",
+            "muscle_group": [7],
+            "week_routine": 2
+        }
+    },
+    {
+        "model": "shapeteam.daytraining",
+        "pk": 7,
+        "fields": {
+            "weekday": "sunday",
+            "muscle_group": [1, 7],
+            "week_routine": 2
+        }
+    },
+    {
+        "model": "shapeteam.daytraining",
+        "pk": 8,
+        "fields": {
+            "weekday": "sunday",
+            "muscle_group": [7],
+            "week_routine": 3
+        }
+    },
+    {
+        "model": "shapeteam.daytraining",
+        "pk": 9,
+        "fields": {
+            "weekday": "sunday",
+            "muscle_group": [4, 8],
+            "week_routine": 3
+        }
+    },
+    {
+        "model": "shapeteam.daytraining",
+        "pk": 10,
+        "fields": {
+            "weekday": "sunday",
+            "muscle_group": [2, 5],
+            "week_routine": 3
+        }
+    }
+]

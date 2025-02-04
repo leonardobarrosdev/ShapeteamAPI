@@ -250,8 +250,15 @@ class TrainingPartnersAPITest(APITestCase):
             first_name='Alice',
             last_name='Johnson'
         )
-        self.client.login(username='testuser1', password='testpass123')
-        self.client.force_authenticate(user=self.user1)
+        _, token = AuthToken.objects.create(self.user1)
+        self.client.credentials(HTTP_AUTHORIZATION=f'Token {token}')
+
+    def test_get_all_pending_requests(self):
+        Connection.objects.create(sender=self.user2, receiver=self.user1)
+        response = self.client.get(reverse('training-partners-pending'))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data), 1)
+        self.assertEqual(response.data[0]['sender'], self.user2.id)
 
     def test_training_partners_list(self):
         Connection.objects.create(sender=self.user1, receiver=self.user2)

@@ -1,0 +1,50 @@
+[
+  {
+    "model": "user.customuser",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$720000$AApwBAxUZAFxyfNudTHgFi$Kr8luclJXz7Ppd/ItwOfHEw0Q9tzrZ2GDfijhD+R/Uw=",
+      "last_login": null,
+      "is_superuser": true,
+      "username": "fulano",
+      "first_name": "fulano",
+      "last_name": null,
+      "thumbnail": "thumbnails/fulano",
+      "email": "fulano@company.com",
+      "gender": 1,
+      "height": 1.6,
+      "weight": 55.2,
+      "date_birth": "1994-03-10",
+      "level": 1,
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2024-09-16T04:07:36.746Z",
+      "groups": [],
+      "user_permissions": [29, 30, 31, 32, 37, 38, 39, 40, 51, 52, 53, 54, 55, 56]
+    }
+  },
+  {
+    "model": "user.customuser",
+    "pk": 2,
+    "fields": {
+      "password": "pbkdf2_sha256$720000$85cejJjZLm9zwh3Yzk1qX1$JNQX95CraPba05dAh9CDndcH6N3ki4ItySeEBNCe0uY=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "john",
+      "first_name": "john",
+      "last_name": null,
+      "thumbnail": "thumbnails/john",
+      "email": "john@company.com",
+      "gender": 1,
+      "height": 1.6,
+      "weight": 55.2,
+      "date_birth": "1990-02-12",
+      "level": 1,
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2024-09-16T04:08:26.019Z",
+      "groups": [],
+      "user_permissions": [33, 34, 35, 36, 51, 52, 53, 54, 55, 56]
+    }
+  }
+]

@@ -1,3 +1,4 @@
+import ipdb
 from rest_framework import serializers
 from apps.user.serializers import UserSerializer
 from .models import *
@@ -23,10 +24,49 @@ class ExerciseSerializer(serializers.ModelSerializer):
         return None
 
 
+class WeekRoutineSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = WeekRoutine
+        fields = ['id', 'user']
+
+    def create(self, validated_data):
+        return WeekRoutine.objects.create(**validated_data)
+
+
 class DayTrainingSerializer(serializers.ModelSerializer):
+    weekday = serializers.CharField(required=False)
+    muscle_group = MuscleGroupSerializer(many=True)
+    week_routine = WeekRoutineSerializer()
+
     class Meta:
         model = DayTraining
         fields = '__all__'
+
+    def partial_update(self, instance, validated_data):
+        return super().update(instance, validated_data)
+
+
+class DayTrainingCreateSerializer(serializers.ModelSerializer):
+    muscle_group = serializers.PrimaryKeyRelatedField(
+        many=True,
+        queryset=MuscleGroup.objects.all()
+    )
+    week_routine = serializers.PrimaryKeyRelatedField(
+        queryset=WeekRoutine.objects.all()
+    )
+
+    class Meta:
+        model = DayTraining
+        exclude = ['id']
+
+    def create(self, validated_data):
+        muscle_groups = validated_data.pop('muscle_group', [])
+        week_routine = validated_data.pop('week_routine')
+        day_training = DayTraining.objects.create(**validated_data)
+        for muscle_group in muscle_groups:
+            day_training.muscle_group.add(muscle_group.id)
+        day_training.week_routine = week_routine
+        return day_training
 
 
 class ExerciseRankingSerializer(serializers.ModelSerializer):
@@ -55,9 +95,3 @@ class ConnectionSerializer(serializers.ModelSerializer):
         model = Connection
         fields = '__all__'
         read_only_fields = ('accepted',)
-
-
-class WeekRoutineSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = WeekRoutine
-        fields = '__all__'

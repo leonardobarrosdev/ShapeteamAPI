@@ -14,6 +14,7 @@ from knox import views as knox_views
 from .serializers import *
 from .utils import Util
 
+
 User = get_user_model()
 
 class CsrfExemptSessionAuthentication(SessionAuthentication):
@@ -56,7 +57,7 @@ class LoginAPIView(knox_views.LoginView):
         user = serializer.validated_data['user']
         login(request, user)
         response = super().post(request, *args, **kwargs)
-        user_serializer = UserSerializer(user)
+        user_serializer = ProfileSerializer(user)
         response.data['user'] = user_serializer.data
         return response
 

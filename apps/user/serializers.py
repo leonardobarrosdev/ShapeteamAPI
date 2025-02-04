@@ -13,6 +13,21 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ('id', 'username', 'first_name', 'email', 'gender')
 
 
+class ProfileSerializer(serializers.ModelSerializer):
+    age = serializers.SerializerMethodField()
+    imc = serializers.SerializerMethodField()
+
+    class Meta:
+        model = CustomUser
+        fields = '__all__'
+
+    def get_age(self, obj):
+        return obj.get_age()
+
+    def get_imc(self, obj):
+        return obj.get_imc()
+
+
 class RegisterSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(
         required=True,

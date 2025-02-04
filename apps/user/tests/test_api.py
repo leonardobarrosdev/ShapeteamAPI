@@ -6,7 +6,7 @@ from rest_framework import status
 
 
 class RegisterAPITest(APITestCase):
-    fixtures = ['fixtures/user/user_fixture.json']
+    fixtures = ['apps/user/fixtures/user_fixture.json']
     data = {
         "first_name": "wedley",
         "last_name": "Doe",
@@ -38,7 +38,7 @@ class RegisterAPITest(APITestCase):
 
 
 class LoginAPITest(APITestCase):
-    fixtures = ['fixtures/user/user_fixture.json']
+    fixtures = ['apps/user/fixtures/login_fixture.json']
 
     def test_login_success(self):
         data = {"email": "fulano@company.com", "password": "password123", }
@@ -61,7 +61,7 @@ class LoginAPITest(APITestCase):
 
 
 class UpdateUserAPITest(APITestCase):
-    fixtures = ['fixtures/user/user_fixture.json']
+    fixtures = ['apps/user/fixtures/user_fixture.json']
 
     def setUp(self):
         self.user = get_user_model().objects.get(id=4)
@@ -87,7 +87,7 @@ class UpdateUserAPITest(APITestCase):
 
 
 class ChangePasswordAPITest(APITestCase):
-    fixtures = ['fixtures/user/user_fixture.json']
+    fixtures = ['apps/user/fixtures/user_fixture.json']
 
     def setUp(self):
         self.user = get_user_model().objects.get(id=5)
@@ -125,7 +125,7 @@ class ChangePasswordAPITest(APITestCase):
 
 
 class SearchUserAPITest(APITestCase):
-    fixtures = ['fixtures/user/user_fixture.json']
+    fixtures = ['apps/user/fixtures/user_fixture.json']
 
     def setUp(self):
         self.user = get_user_model().objects.get(id=5)

@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.db import models
 from django.contrib.auth.models import BaseUserManager, PermissionsMixin, AbstractBaseUser
 from django.utils.translation import gettext_lazy as _
@@ -48,14 +50,13 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=30, default="name")
     first_name = models.CharField(max_length=80, blank=True, null=True)
     last_name = models.CharField(max_length=120, blank=True, null=True)
-    thumbnail = models.ImageField(upload_to=upload_thumbnail, null=True, blank=True)
+    thumbnail = models.ImageField(upload_to=upload_thumbnail, default='profile.png')
     email = models.EmailField(max_length=254, unique=True)
     gender = models.SmallIntegerField(choices=GENDERS, blank=True, null=True)
     height = models.FloatField(blank=True, null=True)
     weight = models.FloatField(blank=True, null=True)
     date_birth = models.DateField(blank=True, null=True)
     level = models.SmallIntegerField(choices=LEVELS, default=1)
-    goal = models.ForeignKey('shapeteam.Goal', on_delete=models.SET_NULL, blank=True, null=True)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
     date_joined = models.DateTimeField(default=timezone.now)
@@ -70,6 +71,16 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     def get_full_name(self):
         return f"{self.first_name} {self.last_name}"
+
+    def get_age(self):
+        current_year = int(datetime.strftime(datetime.now(), '%Y'))
+        return current_year - self.date_birth.year
+
+    def get_imc(self):
+        if self.height and self.weight:
+            imc = self.weight / (self.height ** 2)
+            return round(imc)
+        return 0.0
 
 
 class Address(models.Model):

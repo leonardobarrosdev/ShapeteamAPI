@@ -44,6 +44,16 @@ class TrainingPartnerAPIView(viewsets.ModelViewSet):
                 Q(receiver__last_name__icontains=search)
             )
         return queryset
+    
+    def pending(self, request, *args, **kwargs):
+        """Get all connection requests for the current user"""
+        users = Connection.objects.filter(
+            Q(sender=self.request.user) |
+            Q(receiver=self.request.user) &
+            Q(accepted=False)
+        )
+        serializer = ConnectionSerializer(users, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     def create(self, request, *args, **kwargs):
         """
