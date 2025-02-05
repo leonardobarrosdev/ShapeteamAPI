@@ -73,8 +73,10 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         return f"{self.first_name} {self.last_name}"
 
     def get_age(self):
-        current_year = int(datetime.strftime(datetime.now(), '%Y'))
-        return current_year - self.date_birth.year
+        if self.date_birth:
+            current_year = int(datetime.strftime(datetime.now(), '%Y'))
+            return current_year - self.date_birth.year
+        return 0
 
     def get_imc(self):
         if self.height and self.weight:
