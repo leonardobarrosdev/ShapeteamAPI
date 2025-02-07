@@ -35,6 +35,7 @@ ALLOWED_HOSTS = env('ALLOWED_HOSTS').split(' ')
 
 # Application definition
 INSTALLED_APPS = [
+    'daphne',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -45,9 +46,11 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'knox',
+    'channels',
+    'channels_redis',
     # Apps
     'apps.user',
-    # 'apps.chat',
+    'apps.chat',
     'apps.shapeteam',
 ]
 
@@ -82,6 +85,7 @@ TEMPLATES = [
     },
 ]
 
+ASGI_APPLICATION = 'core.asgi.application'
 WSGI_APPLICATION = 'core.wsgi.application'
 
 # Database
@@ -96,6 +100,16 @@ if DEBUG:
 else:
     import dj_database_url
     DATABASES = {'default': dj_database_url.parse(env('DATABASE_URL'))}
+
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("127.0.0.1", 6379)],
+        },
+    },
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
