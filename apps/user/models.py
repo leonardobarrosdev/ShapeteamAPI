@@ -1,4 +1,5 @@
 from datetime import datetime
+import uuid
 
 from django.db import models
 from django.contrib.auth.models import BaseUserManager, PermissionsMixin, AbstractBaseUser
@@ -12,6 +13,12 @@ def upload_thumbnail(instance, filename):
     if extension:
         path = path + '.' + extension
     return path
+
+def username_generator(instance):
+    username = f"{instance.first_name}{str(uuid.uuid4().int)[:4]}"
+    if len(username) > 30:
+        username = username[:26] + str(uuid.uuid4().int)[:4]
+    return username
 
 
 class UserManager(BaseUserManager):
@@ -47,7 +54,7 @@ class UserManager(BaseUserManager):
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     GENDERS = ((1, 'male'), (2, 'female'), (3, 'other'))
     LEVELS = ((1, 'basic'), (2, 'medium'), (3, 'advanced'))
-    username = models.CharField(max_length=30, default="name")
+    username = models.CharField(max_length=30, unique=True)
     first_name = models.CharField(max_length=80, blank=True, null=True)
     last_name = models.CharField(max_length=120, blank=True, null=True)
     thumbnail = models.ImageField(upload_to=upload_thumbnail, default='profile.png')
@@ -83,6 +90,11 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
             imc = self.weight / (self.height ** 2)
             return round(imc)
         return 0.0
+    
+    def save(self, *args, **kwargs):
+        if not self.username:
+            self.username = username_generator(self)
+        super().save(*args, **kwargs)
 
 
 class Address(models.Model):
