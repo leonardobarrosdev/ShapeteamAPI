@@ -1,3 +1,4 @@
+import ipdb
 from knox.auth import TokenAuthentication
 from django.contrib.auth import get_user_model
 from django.db.models import Q
@@ -21,22 +22,23 @@ class UserCompatibilityViewSet(viewsets.ModelViewSet):
         Return a list of users that match the criteria (completion rate of top to dow).
         """
         user = self.request.user
-        imc, age, level = user.get_imc(), user.get_age(), user.level
-        address = Address.objects.get(user=user)
-        address_list = Address.objects.filter(city=address.city)
-        users = [ads.user for ads in address_list]
+        # imc, age, level = user.get_imc(), user.get_age(), user.level
         existing_partners = Connection.objects.filter(
                 Q(sender=user) | Q(receiver=user)
             ).values_list('sender', 'receiver')
         existing_partner_ids = set(
             [partner_id for partners in existing_partners for partner_id in partners]
         )
-        for usr in users:
-            if (imc - usr.get_imc() > 10) and (age - usr.get_age() > 10) or level != usr.level:
-                users.remove(usr)
-        user_refs = UserPerformanceMetrics.objects.exclude(user__in=existing_partner_ids).filter(user__in=users).order_by('-completion_rate').values('user')
-        users = self.queryset.filter(id__in=user_refs)
-        return users if users else self.queryset.exclude(user__in=existing_partner_ids)
+        address = Address.objects.get(user=user)
+        addresses = Address.objects.exclude(user__in=existing_partner_ids).exclude(user=user).filter(city=address.city)
+        users = self.queryset.filter(id__in=addresses.values('user'))
+        # for usr in users:
+        #     if (imc - usr.get_imc() > 10) and (age - usr.get_age() > 10) or level != usr.level:
+        #         users.remove(usr)
+        # user_refs = UserPerformanceMetrics.objects.filter(user__in=users).order_by('-completion_rate').values('user')
+        # if not user_refs:
+        #     users = self.queryset.exclude(user__in=users)
+        return users
     
     def list(self, request, *args, **kwargs):
         queryset = self.get_queryset()
