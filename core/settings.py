@@ -47,7 +47,6 @@ INSTALLED_APPS = [
     'corsheaders',
     'knox',
     'channels',
-    'channels_redis',
     # Apps
     'apps.user',
     'apps.chat',
