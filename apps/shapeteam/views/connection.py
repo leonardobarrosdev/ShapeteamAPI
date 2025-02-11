@@ -10,7 +10,6 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from django.db.models import Q
 from apps.user.serializers import UserSerializer
-import ipdb
 
 
 User = get_user_model()
