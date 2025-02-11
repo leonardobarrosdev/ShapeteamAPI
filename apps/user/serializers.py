@@ -18,7 +18,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CustomUser
-        fields = '__all__'
+        fields = ['id', 'username', 'first_name', 'last_name', 'thumbnail', 'email', 'gender', 'height', 'weight', 'date_birth', 'level', 'age', 'imc']
 
     def get_age(self, obj):
         return obj.get_age()
