@@ -3,13 +3,14 @@ from django.utils.translation import gettext_lazy as _
 from knox.auth import TokenAuthentication
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAuthenticated
-from apps.shapeteam.serializers import ConnectionSerializer
+from apps.shapeteam.serializers import ConnectionCreateSerializer, ConnectionSerializer
 from apps.shapeteam.models import Connection
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from django.db.models import Q
 from apps.user.serializers import UserSerializer
+import ipdb
 
 
 User = get_user_model()
@@ -76,7 +77,7 @@ class TrainingPartnerAPIView(viewsets.ModelViewSet):
                 status=status.HTTP_400_BAD_REQUEST
             )
         # Create new connection request
-        serializer = self.get_serializer(data={
+        serializer = ConnectionCreateSerializer(data={
             'sender': request.user.id,
             'receiver': receiver_id
         })

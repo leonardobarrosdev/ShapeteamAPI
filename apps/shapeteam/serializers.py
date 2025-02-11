@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from apps.user.serializers import UserSerializer
+from apps.user.serializers import ProfileSerializer, UserSerializer
 from .models import *
 
 
@@ -90,6 +90,15 @@ class RequestSerializer(serializers.ModelSerializer):
 
 
 class ConnectionSerializer(serializers.ModelSerializer):
+    receiver = ProfileSerializer(read_only=True)
+    
+    class Meta:
+        model = Connection
+        fields = '__all__'
+        read_only_fields = ('accepted',)
+
+
+class ConnectionCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Connection
         fields = '__all__'
