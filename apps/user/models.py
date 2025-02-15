@@ -99,12 +99,13 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
 class Address(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    address = models.CharField(max_length=300, null=True, blank=True)
-    number = models.PositiveSmallIntegerField(default=0)
-    neighborhood = models.CharField(max_length=220, null=True, blank=True)
-    city = models.CharField(max_length=200)
-    state = models.CharField(max_length=2)
+    country = models.CharField(max_length=100, default='Brazil')
     zipcode = models.IntegerField()
+    state = models.CharField(max_length=2)
+    city = models.CharField(max_length=200)
+    neighborhood = models.CharField(max_length=200, blank=True, null=True)
+    street = models.CharField(max_length=200, blank=True, null=True)
+    number = models.PositiveSmallIntegerField(default=0)
 
     def __str__(self):
-        return f'{self.city} - {self.state}'
+        return f'{self.city}, {self.state}, {self.country}'

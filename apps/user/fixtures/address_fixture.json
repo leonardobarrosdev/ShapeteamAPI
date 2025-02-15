@@ -4,12 +4,13 @@
         "pk": 1,
         "fields": {
             "user": 1,
-            "address": "123 Main St",
-            "number": 101,
+            "country": "USA", 
+            "zipcode": 10001, 
+            "state": "NY", 
+            "city": "New York", 
             "neighborhood": "Downtown",
-            "city": "New York",
-            "state": "NY",
-            "zipcode": 10001
+            "street": "123 Main St", 
+            "number": 101
         }
     },
     {
@@ -17,12 +18,13 @@
         "pk": 2,
         "fields": {
             "user": 2,
-            "address": "456 Elm St",
-            "number": 202,
+            "country": "USA",
+            "zipcode": 90001, 
+            "state": "CA", 
+            "city": "Los Angeles", 
             "neighborhood": "Uptown",
-            "city": "Los Angeles",
-            "state": "CA",
-            "zipcode": 90001
+            "street": "456 Elm St", 
+            "number": 202
         }
     },
     {
@@ -30,116 +32,125 @@
         "pk": 3,
         "fields": {
             "user": 3,
-            "address": "789 Oak St",
-            "number": 303,
+            "country": "USA",
+            "zipcode": 60601, 
+            "state": "IL", 
+            "city": "Chicago", 
             "neighborhood": "Midtown",
-            "city": "Chicago",
-            "state": "IL",
-            "zipcode": 60601
+            "street": "789 Oak St", 
+            "number": 303
         }
     },
     {
         "model": "user.address",
         "pk": 4,
         "fields": {
-            "user": 5,
-            "address": "101 Pine St",
-            "number": 404,
+            "user": 5, 
+            "country": "USA",
+            "zipcode": 77001, 
+            "state": "TX", 
+            "city": "Houston", 
             "neighborhood": "Suburb",
-            "city": "Houston",
-            "state": "TX",
-            "zipcode": 77001
+            "street": "101 Pine St", 
+            "number": 404
         }
     },
     {
         "model": "user.address",
         "pk": 5,
         "fields": {
-            "user": 4,
-            "address": "202 Maple St",
-            "number": 505,
+            "user": 4, 
+            "country": "USA",
+            "zipcode": 85001, 
+            "state": "AZ", 
+            "city": "Phoenix", 
             "neighborhood": "Old Town",
-            "city": "Phoenix",
-            "state": "AZ",
-            "zipcode": 85001
+            "street": "202 Maple St", 
+            "number": 505
         }
     },
     {
         "model": "user.address",
         "pk": 6,
         "fields": {
-            "user": 6,
-            "address": "303 Cedar St",
-            "number": 606,
+            "user": 6, 
+            "country": "USA",
+            "zipcode": 19019, 
+            "state": "PA", 
+            "city": "Philadelphia", 
             "neighborhood": "New Town",
-            "city": "Philadelphia",
-            "state": "PA",
-            "zipcode": 19019
+            "street": "303 Cedar St", 
+            "number": 606
         }
     },
     {
         "model": "user.address",
         "pk": 7,
         "fields": {
-            "user": 7,
-            "address": "404 Birch St",
-            "number": 707,
+            "user": 7, 
+            "country": "USA",
+            "zipcode": 78201, 
+            "state": "TX", 
+            "city": "San Antonio", 
             "neighborhood": "East Side",
-            "city": "San Antonio",
-            "state": "TX",
-            "zipcode": 78201
+            "street": "404 Birch St", 
+            "number": 707
         }
     },
     {
         "model": "user.address",
         "pk": 8,
         "fields": {
-            "user": 8,
-            "address": "505 Walnut St",
-            "number": 808,
+            "user": 8, 
+            "country": "USA",
+            "zipcode": 92101, 
+            "state": "CA", 
+            "city": "San Diego", 
             "neighborhood": "West Side",
-            "city": "San Diego",
-            "state": "CA",
-            "zipcode": 92101
+            "street": "505 Walnut St", 
+            "number": 808
         }
     },
     {
         "model": "user.address",
         "pk": 9,
         "fields": {
-            "user": 9,
-            "address": "606 Spruce St",
-            "number": 909,
+            "user": 9, 
+            "country": "USA",
+            "zipcode": 75201, 
+            "state": "TX", 
+            "city": "Dallas", 
             "neighborhood": "North Side",
-            "city": "Dallas",
-            "state": "TX",
-            "zipcode": 75201
+            "street": "606 Spruce St", 
+            "number": 909
         }
     },
     {
         "model": "user.address",
         "pk": 10,
         "fields": {
-            "user": 10,
-            "address": "707 Cherry St",
-            "number": 1010,
+            "user": 10, 
+            "country": "USA",
+            "zipcode": 95101, 
+            "state": "CA", 
+            "city": "San Jose", 
             "neighborhood": "South Side",
-            "city": "San Jose",
-            "state": "CA",
-            "zipcode": 95101
+            "street": "707 Cherry St", 
+            "number": 1010
         }
     },
     {
         "model": "user.address",
         "pk": 11,
         "fields": {
-            "user": 9,
-            "address": "106 Pine St",
-            "number": 301,
+            "user": 9, 
+            "country": "USA",
+            "zipcode": 77001, 
+            "state": "TX", 
+            "city": "Houston", 
             "neighborhood": "Suburb",
-            "city": "Houston",
-            "state": "TX",
-            "zipcode": 77001
+            "street": "106 Pine St", 
+            "number": 301
         }
     }
 ]

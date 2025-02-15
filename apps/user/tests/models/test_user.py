@@ -4,7 +4,7 @@ from apps.user.models import CustomUser
 
 
 class UserModelTest(TestCase):
-    fixtures = ['fixtures/user/user_fixture.json']
+    fixtures = ['apps/user/fixtures/user_fixture.json']
 
     def setUp(self):
         self.username = 'test'
