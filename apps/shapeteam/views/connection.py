@@ -9,7 +9,6 @@ from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from django.db.models import Q
-from apps.user.serializers import UserSerializer
 
 
 User = get_user_model()
@@ -20,32 +19,22 @@ class TrainingPartnerAPIView(viewsets.ModelViewSet):
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
     pagination_class = PageNumberPagination
-
-    def get_queryset(self):
-        """
-        Retrieve connection requests for the current user
-        Supports filtering by status and search
-        """
-        user = self.request.user
-        status_filter = self.request.query_params.get('status')
-        search = self.request.query_params.get('search', '')
-        queryset = Connection.objects.filter(
-            Q(sender=user) | Q(receiver=user)
-        )
-        if status_filter == 'pending':
-            queryset = queryset.filter(accepted=False)
-        elif status_filter == 'accepted':
-            queryset = queryset.filter(accepted=True)
-        if search:
-            queryset = queryset.filter(
-                Q(sender__first_name__icontains=search) |
-                Q(sender__last_name__icontains=search) |
-                Q(receiver__first_name__icontains=search) |
-                Q(receiver__last_name__icontains=search)
-            )
-        return queryset
     
-    def pending(self, request, *args, **kwargs):
+    def list(self, request):
+        """Get all connection requests for the current user"""
+        users = Connection.objects.filter(
+            Q(sender=self.request.user) |
+            Q(receiver=self.request.user) &
+            Q(accepted=False)
+        )
+        page = self.paginate_queryset(users)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+        serializer = self.get_serializer(users, many=True)
+        return Response(serializer.data)
+    
+    def pending(self, request):
         """Get all connection requests for the current user"""
         users = Connection.objects.filter(
             Q(sender=self.request.user) |
@@ -55,7 +44,7 @@ class TrainingPartnerAPIView(viewsets.ModelViewSet):
         serializer = ConnectionSerializer(users, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-    def create(self, request, *args, **kwargs):
+    def create(self, request):
         """
         Create a new connection request
         Prevents duplicate requests and self-connections
@@ -112,26 +101,3 @@ class TrainingPartnerAPIView(viewsets.ModelViewSet):
             {"message": _("Connection request deleted")},
             status=status.HTTP_204_NO_CONTENT
         )
-
-    @action(detail=False, methods=['GET'])
-    def potential_partners(self, request):
-        """
-        Find potential training partners based on search criteria
-        Excludes existing connections and the current user
-        """
-        search = request.query_params.get('search', '')
-        existing_partners = Connection.objects.filter(
-            Q(sender=request.user) | Q(receiver=request.user)
-        ).values_list('sender_id', 'receiver_id')
-        # Flatten and remove duplicates
-        existing_partner_ids = set(
-            [partner_id for pair in existing_partners for partner_id in pair]
-        )
-        existing_partner_ids.add(request.user.id)
-        # Find potential partners
-        potential_partners = User.objects.exclude(id__in=existing_partner_ids).filter(
-            Q(first_name__icontains=search) |
-            Q(last_name__icontains=search)
-        )
-        serializer = UserSerializer(potential_partners, many=True)
-        return Response(serializer.data)

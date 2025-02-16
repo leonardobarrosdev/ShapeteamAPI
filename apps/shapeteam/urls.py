@@ -48,11 +48,6 @@ urlpatterns = [
         r'^training-partners/(?P<pk>\d+)/reject_request/$',
         TrainingPartnerAPIView.as_view({'delete': 'reject_request'}),
         name='training-partners-reject'
-    ),
-    re_path(
-        r'^training-partners/potential_partners/$',
-        TrainingPartnerAPIView.as_view({'get': 'potential_partners'}),
-        name='training-partners-potential'
-    ),
+    )
 ]
 
