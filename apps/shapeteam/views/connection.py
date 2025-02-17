@@ -3,12 +3,17 @@ from django.utils.translation import gettext_lazy as _
 from knox.auth import TokenAuthentication
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAuthenticated
-from apps.shapeteam.serializers import ConnectionCreateSerializer, ConnectionSerializer
+from apps.shapeteam.serializers import (
+    ConnectionCreateSerializer,
+    ConnectionSerializer,
+    ConnectionSenderSerializer
+)
 from apps.shapeteam.models import Connection
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from django.db.models import Q
+import ipdb
 
 
 User = get_user_model()
@@ -37,13 +42,8 @@ class TrainingPartnerAPIView(viewsets.ModelViewSet):
     
     def pending(self, request):
         """Get all connection requests for the current user"""
-        users = Connection.objects.filter(
-            Q(accepted=False) & (
-                Q(sender=request.user) |
-                Q(receiver=request.user)
-            )
-        )
-        serializer = ConnectionSerializer(users, many=True)
+        users = Connection.objects.filter(accepted=False, receiver=request.user)
+        serializer = ConnectionSenderSerializer(users, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def create(self, request):
@@ -82,15 +82,15 @@ class TrainingPartnerAPIView(viewsets.ModelViewSet):
         try:
             sender = User.objects.get(id=pk)
             connection = Connection.objects.get(
-                sender=sender,
-                receiver=receiver,
+                sender=sender.id,
+                receiver=receiver.id,
                 accepted=False
             )
             connection.accepted = True
             connection.save()
-            serializer = self.get_serializer(connection)
+            serializer = ConnectionSenderSerializer(connection)
             return Response(serializer.data)
-        except Connection.DoesNotExist:
+        except User.DoesNotExist or Connection.DoesNotExist:
             return Response(
                 {"error": _("Connection request not found")},
                 status=status.HTTP_404_NOT_FOUND

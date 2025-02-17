@@ -98,6 +98,15 @@ class ConnectionSerializer(serializers.ModelSerializer):
         read_only_fields = ('accepted',)
 
 
+class ConnectionSenderSerializer(serializers.ModelSerializer):
+    sender = ProfileSerializer(read_only=True)
+    
+    class Meta:
+        model = Connection
+        fields = '__all__'
+        read_only_fields = ('accepted',)
+
+
 class ConnectionCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Connection
