@@ -27,27 +27,27 @@ urlpatterns = [
     re_path(
         r'^training-partners/$',
         TrainingPartnerAPIView.as_view({'get': 'list'}),
-        name='training-partners-list'
+        name='training-partner-list'
     ),
     re_path(
         r'^training-partners/create/$',
         TrainingPartnerAPIView.as_view({'post': 'create'}),
-        name='training-partners-create'
+        name='training-partner-create'
     ),
     re_path(
         r'^training-partners-pending/$',
         TrainingPartnerAPIView.as_view({'get': 'pending'}),
-        name='training-partners-pending'
+        name='training-partner-pending'
     ),
     re_path(
         r'^training-partners/(?P<pk>\d+)/accept_request/$',
         TrainingPartnerAPIView.as_view({'post': 'accept_request'}),
-        name='training-partners-accept'
+        name='training-partner-accept'
     ),
     re_path(
         r'^training-partners/(?P<pk>\d+)/reject_request/$',
         TrainingPartnerAPIView.as_view({'delete': 'reject_request'}),
-        name='training-partners-reject'
+        name='training-partner-reject'
     )
 ]
 

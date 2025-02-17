@@ -25,7 +25,7 @@ class TrainingPartnerAPIView(viewsets.ModelViewSet):
         users = Connection.objects.filter(
             Q(sender=self.request.user) |
             Q(receiver=self.request.user) &
-            Q(accepted=False)
+            Q(accepted=True)
         )
         page = self.paginate_queryset(users)
         if page is not None:
@@ -76,28 +76,34 @@ class TrainingPartnerAPIView(viewsets.ModelViewSet):
     @action(detail=True, methods=['POST'])
     def accept_request(self, request, pk=None):
         """Accept a connection request"""
-        connection = self.get_object()
-        if connection.receiver != request.user:
+        receiver = request.user
+        try:
+            sender = User.objects.get(id=pk)
+            connection = Connection.objects.get(sender=sender, receiver=receiver)
+            connection.accepted = True
+            connection.save()
+            serializer = self.get_serializer(connection)
+            return Response(serializer.data)
+        except Connection.DoesNotExist:
             return Response(
-                {"error": _("You are not authorized to accept this request")},
-                status=status.HTTP_403_FORBIDDEN
+                {"error": _("Connection request not found")},
+                status=status.HTTP_404_NOT_FOUND
             )
-        connection.accepted = True
-        connection.save()
-        serializer = self.get_serializer(connection)
-        return Response(serializer.data)
 
     @action(detail=True, methods=['DELETE'])
     def reject_request(self, request, pk=None):
         """Reject or cancel a connection request"""
-        connection = self.get_object()
-        if connection.sender != request.user and connection.receiver != request.user:
+        receiver = request.user
+        try:
+            sender = User.objects.get(id=pk)
+            connection = Connection.objects.get(sender=sender, receiver=receiver)
+            connection.delete()
             return Response(
-                {"error": _("You are not authorized to modify this request")},
-                status=status.HTTP_403_FORBIDDEN
+                {"message": _("Connection request deleted")},
+                status=status.HTTP_204_NO_CONTENT
             )
-        connection.delete()
-        return Response(
-            {"message": _("Connection request deleted")},
-            status=status.HTTP_204_NO_CONTENT
-        )
+        except Connection.DoesNotExist:
+            return Response(
+                {"error": _("Connection request not found")},
+                status=status.HTTP_404_NOT_FOUND
+            )
