@@ -23,9 +23,10 @@ class TrainingPartnerAPIView(viewsets.ModelViewSet):
     def list(self, request):
         """Get all connection requests for the current user"""
         users = Connection.objects.filter(
-            Q(sender=self.request.user) |
-            Q(receiver=self.request.user) &
-            Q(accepted=True)
+            Q(accepted=True) & (
+                Q(sender=request.user) |
+                Q(receiver=request.user)
+            )
         )
         page = self.paginate_queryset(users)
         if page is not None:
@@ -37,9 +38,10 @@ class TrainingPartnerAPIView(viewsets.ModelViewSet):
     def pending(self, request):
         """Get all connection requests for the current user"""
         users = Connection.objects.filter(
-            Q(sender=self.request.user) |
-            Q(receiver=self.request.user) &
-            Q(accepted=False)
+            Q(accepted=False) & (
+                Q(sender=request.user) |
+                Q(receiver=request.user)
+            )
         )
         serializer = ConnectionSerializer(users, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
@@ -79,7 +81,11 @@ class TrainingPartnerAPIView(viewsets.ModelViewSet):
         receiver = request.user
         try:
             sender = User.objects.get(id=pk)
-            connection = Connection.objects.get(sender=sender, receiver=receiver)
+            connection = Connection.objects.get(
+                sender=sender,
+                receiver=receiver,
+                accepted=False
+            )
             connection.accepted = True
             connection.save()
             serializer = self.get_serializer(connection)
