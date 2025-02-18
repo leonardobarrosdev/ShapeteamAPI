@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
-import os, environ
+import os, environ, cloudinary
 from pathlib import Path
 from datetime import timedelta
 
@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'knox',
+    'cloudinary',
     # Apps
     'apps.user',
     'apps.shapeteam',
@@ -208,3 +209,11 @@ CORS_ALLOW_HEADERS = (
 REST_KNOX = {
     'TOKEN_TTL': timedelta(hours = 48),
 }
+
+# Cloudnary
+cloudinary.config(
+    cloud_name=env('CLOUD_NAME'),
+    api_key=env('API_KEY'),
+    api_secret=env('API_SECRET'),
+    secure=env('SECURE')
+)
