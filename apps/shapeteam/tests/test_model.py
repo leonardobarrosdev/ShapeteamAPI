@@ -4,7 +4,8 @@ from django.db.utils import IntegrityError
 from apps.shapeteam.models import *
 import datetime
 
-PATH = 'fixtures/shapeteam'
+
+PATH = 'apps/shapeteam/fixtures'
 
 class ConnectionTest(TestCase):
     fixtures = [
@@ -99,22 +100,20 @@ class GymTest(TestCase):
 
 class DayTrainingTest(TestCase):
     fixtures = [
-        'fixtures/user/user_fixture.json',
-        f'{PATH}/name_exercise_fixture.json',
+        'apps/user/fixtures/user_fixture.json',
+        f'{PATH}/muscle_group_fixture.json',
         f'{PATH}/exercise_fixture.json',
-        f'{PATH}/daytraining_fixture.json',
-        f'{PATH}/weekroutine_fixture.json'
+        f'{PATH}/day_training_fixture.json',
+        f'{PATH}/week_routine_fixture.json'
     ]
 
     def setUp(self):
         self.user = get_user_model().objects.get(pk=1)
-        self.exercise = Exercise.objects.get(pk=1)
         self.week_routine = WeekRoutine.objects.get(pk=1)
         self.day_training = DayTraining.objects.create(
-            routine=self.week_routine,
+            week_routine=self.week_routine,
             weekday='Monday'
         )
-        self.day_training.exercises.add(self.exercise)
     
     def test_day_training_success(self):
         self.assertIn(self.exercise, self.day_training.exercises.all())
@@ -125,10 +124,18 @@ class DayTrainingTest(TestCase):
     
     def test_day_training_obj_field(self):
         day_training = DayTraining.objects.get(pk=1)
-        field_label = day_training._meta.get_field('routine').verbose_name
+        field_label = day_training._meta.get_field('week_routine').verbose_name
         field_length = day_training._meta.get_field('weekday').max_length
-        self.assertEqual(field_label, 'routine')
+        self.assertEqual(field_label, 'week_routine')
         self.assertEqual(field_length, 120)
+
+    def test_day_training_str(self):
+        self.assertEqual(str(self.day_training), "Monday")
+    
+    def test_day_training_muscle_group(self):
+        day_training = DayTraining.objects.get(pk=5)
+        muscle_group = day_training.muscle_group.all()
+        self.assertIn("Glutes", muscle_group.values_list('name', flat=True))
 
 
 class DayExerciseTest(TestCase):

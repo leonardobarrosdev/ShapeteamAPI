@@ -32,21 +32,24 @@ class UserCompatibilityViewSet(viewsets.ModelViewSet):
         # features = self.find_by_features()
         # users = address.objects.contains(id__in=features.values('id'))
         users = self.find_by_address()
-        queryset = users | self.get_queryset()
-        usr = self.find_by_performance(queryset)
-        if usr:
-            queryset = usr
+        queryset = self.get_queryset() if not users else users
+        # usr = self.find_by_performance(queryset)
+        # if usr:
+        #     queryset = usr
         serializer = UserSerializer(queryset, many=True)
         return Response(serializer.data)
     
     def find_by_address(self):
         """Find users by address"""
         user = self.request.user
-        queryset = self.get_queryset()
-        address = Address.objects.get(user=user)
-        addresses = Address.objects.exclude(user=user).filter(city=address.city)
-        users = queryset.filter(id__in=addresses.values('user'))
-        return users
+        try:
+            address = Address.objects.get(user=user)
+            addresses = Address.objects.exclude(user=user).filter(city=address.city)
+            queryset = self.get_queryset()
+            users = queryset.filter(id__in=addresses.values('user'))
+            return users
+        except Address.DoesNotExist:
+            return None
 
     def find_by_features(self):
         """It filters users based on their IMC, age and level"""
@@ -73,6 +76,6 @@ class UserCompatibilityViewSet(viewsets.ModelViewSet):
         order by completion rate
         return a list of users ordered by completion rate
         """
-        performance_metrics = UserPerformanceMetrics.objects.filter(user__in=users)
+        performance_metrics = UserPerformanceMetrics.objects.filter(user__id__in=users)
         users = performance_metrics.order_by('completion_rate')
         return users

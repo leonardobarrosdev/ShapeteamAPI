@@ -3,7 +3,7 @@ from datetime import datetime
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.utils import timezone
-from django.db.models import Sum, Avg
+from django.db.models import Sum
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.utils.translation import gettext_lazy as _
 from apps.user.models import Address
@@ -280,9 +280,3 @@ class Gym(models.Model):
     class Meta:
         verbose_name = _("Gym")
         verbose_name_plural = _("Gyms")
-
-
-class Goal(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    name = models.CharField(max_length=60)
-    description = models.TextField(null=True, blank=True)

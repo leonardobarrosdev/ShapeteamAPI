@@ -1,4 +1,3 @@
-import pdb
 from django.contrib.auth import get_user_model
 from django.urls import reverse
 from rest_framework import status
@@ -10,6 +9,7 @@ PATH = 'apps/shapeteam/fixtures'
 
 class UserCompatibilityAPITest(APITestCase):
     fixtures = [
+        f'apps/user/fixtures/goal_fixture.json',
         'apps/user/fixtures/user_fixture.json',
         f'{PATH}/user_metrics_fixture.json',
         f'{PATH}/muscle_group_fixture.json',
