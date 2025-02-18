@@ -23,7 +23,7 @@ class ChatAPITest(APITestCase):
         self.data = {
             "connection": self.connection.pk,
             "user": self.user1.pk,
-            "text": "Hello, World!"
+            "message": "Hello, World!"
         }
 
     def test_create_chat_success(self):
@@ -35,13 +35,13 @@ class ChatAPITest(APITestCase):
         )
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Chat.objects.count(), 3)
-        self.assertEqual(Chat.objects.last().text, self.data['text'])
+        self.assertEqual(Chat.objects.last().message, self.data['message'])
 
     def test_create_chat_error(self):
         self.client.force_authenticate(user=self.user1)
         response = self.client.post(
             reverse('chat-list'),
-            data=json.dumps({"text": ""}),
+            data=json.dumps({"message": ""}),
             content_type='application/json'
         )
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)

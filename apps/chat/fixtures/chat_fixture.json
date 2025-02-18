@@ -4,7 +4,7 @@
     "fields": {
         "connection": 1,
         "user": 4,
-        "text": "Hello man!",
+        "message": "Hello man!",
         "created": "2024-09-17T02:29:56.224Z"
     }
 },
@@ -14,7 +14,7 @@
     "fields": {
         "connection": 1,
         "user": 5,
-        "text": "Hi bro. How are you?",
+        "message": "Hi bro. How are you?",
         "created": "2024-09-17T02:29:56.224Z"
     }
 },
@@ -24,7 +24,7 @@
     "fields": {
         "connection": 3,
         "user": 4,
-        "text": "Nice...",
+        "message": "Nice...",
         "created": "2024-09-17T02:29:56.224Z"
     }
 }]

@@ -6,7 +6,7 @@ from ..user.models import CustomUser
 class Chat(models.Model):
 	connection = models.ForeignKey(Connection, related_name='messages', on_delete=models.CASCADE)
 	user = models.ForeignKey(CustomUser, related_name='my_messages', on_delete=models.CASCADE)
-	text = models.TextField()
+	message = models.TextField()
 	created = models.DateTimeField(auto_now_add=True)
 
 	def __str__(self):
