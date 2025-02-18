@@ -7,6 +7,7 @@ from django.utils.translation import gettext_lazy as _
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('apps.user.urls')),
+    path('chat/', include('apps.chat.urls')),
     path('', include('apps.shapeteam.urls')),
     path('api-auth/', include('rest_framework.urls')),
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

@@ -1,17 +1,19 @@
-import json
+import json, pytest
 from django.urls import reverse
 from django.contrib.auth import get_user_model
 from rest_framework.test import APITestCase
 from rest_framework import status
 from apps.shapeteam.models import Connection
 from apps.chat.models import Chat
+from channels.testing import WebsocketCommunicator
+from core.asgi import application
 
 
 class ChatAPITest(APITestCase):
     fixtures = [
-        'fixtures/user/user_fixture.json',
-        'fixtures/shapeteam/connection_fixture.json',
-        'fixtures/chat/chat_fixture.json'
+        'apps/user/fixtures/user_fixture.json',
+        'apps/shapeteam/fixtures/connection_fixture.json',
+        'apps/chat/fixtures/chat_fixture.json'
     ]
 
     def setUp(self):
@@ -32,7 +34,7 @@ class ChatAPITest(APITestCase):
             content_type='application/json'
         )
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(Chat.objects.count(), 4)
+        self.assertEqual(Chat.objects.count(), 3)
         self.assertEqual(Chat.objects.last().text, self.data['text'])
 
     def test_create_chat_error(self):
@@ -54,3 +56,27 @@ class ChatAPITest(APITestCase):
     def test_list_chat_error(self):
         response = self.client.get(reverse('chat-list'))
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+
+@pytest.mark.asyncio
+async def test_websocket_connect():
+    communicator = WebsocketCommunicator(application, "/ws/chat/testroom/")
+    connected, subprotocol = await communicator.connect()
+    assert connected
+    await communicator.disconnect()
+
+@pytest.mark.asyncio
+async def test_websocket_receive_message():
+    communicator = WebsocketCommunicator(application, "/ws/chat/testroom/")
+    await communicator.connect()
+    message = {"message": "Hello, World!"}
+    await communicator.send_json_to(message)
+    response = await communicator.receive_json_from()
+    assert response == message
+    await communicator.disconnect()
+
+@pytest.mark.asyncio
+async def test_websocket_disconnect():
+    communicator = WebsocketCommunicator(application, "/ws/chat/testroom/")
+    await communicator.connect()
+    await communicator.disconnect()

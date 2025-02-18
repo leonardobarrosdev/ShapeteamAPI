@@ -46,9 +46,11 @@ INSTALLED_APPS = [
     'corsheaders',
     'knox',
     'cloudinary',
+    'channels',
     # Apps
     'apps.user',
     'apps.shapeteam',
+    'apps.chat'
 ]
 
 MIDDLEWARE = [
@@ -86,16 +88,18 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-if DEBUG:
-    DATABASES = {
-     	'default': {
-     		'ENGINE': 'django.db.backends.sqlite3',
-     		'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-     	}
-    }
-else:
-    import dj_database_url
-    DATABASES = {'default': dj_database_url.parse(env('DATABASE_URL'))}
+# if DEBUG:
+#     DATABASES = {
+#      	'default': {
+#      		'ENGINE': 'django.db.backends.sqlite3',
+#      		'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#      	}
+#     }
+# else:
+#     import dj_database_url
+#     DATABASES = {'default': dj_database_url.parse(env('DATABASE_URL'))}
+import dj_database_url
+DATABASES = {'default': dj_database_url.parse(env('DATABASE_URL'))}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -217,3 +221,19 @@ cloudinary.config(
     api_secret=env('API_SECRET'),
     secure=env('SECURE')
 )
+
+# Channels
+ASGI_APPLICATION = "core.asgi.application"
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [(
+                env('REDIS_HOST'),
+                env.int('REDIS_PORT')
+            )],
+            "password": env('REDIS_PASSWORD'),
+            "ssl": env.bool('REDIS_SSL', default=False),
+        },
+    },
+}
