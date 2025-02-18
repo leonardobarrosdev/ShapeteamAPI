@@ -18,7 +18,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CustomUser
-        fields = ['id', 'username', 'first_name', 'last_name', 'thumbnail', 'email', 'gender', 'height', 'weight', 'date_birth', 'level', 'age', 'imc']
+        fields = ['id', 'username', 'first_name', 'last_name', 'thumbnail', 'email', 'gender', 'height', 'weight', 'date_birth', 'level', 'age', 'goal', 'imc']
 
     def get_age(self, obj):
         return obj.get_age()
@@ -66,7 +66,7 @@ class UpdateUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
         fields = [
-            'username', 'first_name', 'last_name', 'thumbnail', 'email', 'gender', 'weight', 'date_birth', 'level', 'goal'
+            'username', 'first_name', 'last_name', 'thumbnail', 'email', 'gender', 'height', 'weight', 'date_birth', 'level', 'goal'
         ]
 
     def validate_email(self, value):

@@ -10,6 +10,7 @@ from rest_framework.generics import CreateAPIView, UpdateAPIView
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
+from rest_framework.parsers import MultiPartParser, JSONParser
 from knox import views as knox_views
 from .serializers import *
 from .utils import Util
@@ -66,24 +67,24 @@ class UpdateUserAPIView(UpdateAPIView):
     queryset = get_user_model().objects.all()
     serializer_class = UpdateUserSerializer
     permission_classes = (IsAuthenticated,)
+    parser_classes = (MultiPartParser, JSONParser)
 
-    def update(self, request):
+    def update(self, request, *args, **kwargs):
         try:
-            serializer = self.get_serializer(data=request.data)
-            serializer.is_valid(raise_exception=True)
             user = request.user
-            serializer.update(user, serializer.validated_data)
-            return Response(
-                {
+            serializer = self.get_serializer(user, data=request.data, partial=True)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+            return Response({
                     "user": serializer.data,
                     "detail": _("Successfully updated.")
                 },
                 status=status.HTTP_200_OK
             )
-        except Exception:
+        except Exception as e:
             return Response(
-                {'detail': _("Isn't possible update other user")},
-                status=status.HTTP_401_UNAUTHORIZED
+                {'detail': _("Isn't possible to update user: ") + str(e)},
+                status=status.HTTP_400_BAD_REQUEST
             )
 
 

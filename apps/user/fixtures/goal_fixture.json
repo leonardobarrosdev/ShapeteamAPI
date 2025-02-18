@@ -1,0 +1,65 @@
+[
+    {
+        "model": "user.goal",
+        "pk": 1,
+        "fields": {
+            "name": 1
+        }
+    },
+    {
+        "model": "user.goal",
+        "pk": 2,
+        "fields": {
+            "name": 2
+        }
+    },
+    {
+        "model": "user.goal",
+        "pk": 3,
+        "fields": {
+            "name": 3
+        }
+    },
+    {
+        "model": "user.goal",
+        "pk": 4,
+        "fields": {
+            "name": 4
+        }
+    },
+    {
+        "model": "user.goal",
+        "pk": 5,
+        "fields": {
+            "name": 5
+        }
+    },
+    {
+        "model": "user.goal",
+        "pk": 6,
+        "fields": {
+            "name": 6
+        }
+    },
+    {
+        "model": "user.goal",
+        "pk": 7,
+        "fields": {
+            "name": 7
+        }
+    },
+    {
+        "model": "user.goal",
+        "pk": 8,
+        "fields": {
+            "name": 8
+        }
+    },
+    {
+        "model": "user.goal",
+        "pk": 9,
+        "fields": {
+            "name": 9
+        }
+    }
+]

@@ -1,11 +1,29 @@
 from datetime import datetime
 import uuid
-
+from django.core.files.uploadedfile import UploadedFile
 from django.db import models
 from django.contrib.auth.models import BaseUserManager, PermissionsMixin, AbstractBaseUser
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
+from cloudinary.models import CloudinaryField
+from django.core.exceptions import ValidationError
 
+
+# For testing model validation
+FILE_UPLOAD_MAX_MEMORY_SIZE = 1024 * 1024 * 10  # 10mb
+
+def file_validation(file):
+    """
+    For regular upload, we get UploadedFile instance, so we can validate it.
+    When using direct upload from the browser, here we get an instance of the CloudinaryResource
+    and file is already uploaded to Cloudinary.
+    Still can perform all kinds on validations and maybe delete file, approve moderation, perform analysis, etc.
+    """
+    if not file:
+        raise ValidationError("No file selected.")
+    if isinstance(file, UploadedFile):
+        if file.size > FILE_UPLOAD_MAX_MEMORY_SIZE:
+            raise ValidationError("File shouldn't be larger than 10MB.")
 
 def upload_thumbnail(instance, filename):
     path = f'thumbnails/{instance.username}'
@@ -57,13 +75,14 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=30, unique=True)
     first_name = models.CharField(max_length=80, blank=True, null=True)
     last_name = models.CharField(max_length=120, blank=True, null=True)
-    thumbnail = models.ImageField(upload_to=upload_thumbnail, default='profile.png')
+    thumbnail = CloudinaryField(default='profile.png', validators=[file_validation])
     email = models.EmailField(max_length=254, unique=True)
     gender = models.SmallIntegerField(choices=GENDERS, blank=True, null=True)
     height = models.FloatField(blank=True, null=True)
     weight = models.FloatField(blank=True, null=True)
     date_birth = models.DateField(blank=True, null=True)
     level = models.SmallIntegerField(choices=LEVELS, default=1)
+    goal = models.ManyToManyField('Goal')
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
     date_joined = models.DateTimeField(default=timezone.now)
@@ -95,6 +114,14 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         if not self.username:
             self.username = username_generator(self)
         super().save(*args, **kwargs)
+    
+    def __unicode__(self):
+        """Informative name for model"""
+        try:
+            public_id = self.thumbnail.public_id
+        except AttributeError:
+            public_id = ''
+        return "Photo <%s:%s>" % (self.username, public_id)
 
 
 class Address(models.Model):
@@ -109,3 +136,18 @@ class Address(models.Model):
 
     def __str__(self):
         return f'{self.city}, {self.state}, {self.country}'
+
+
+class Goal(models.Model):
+    GOALS = (
+        (1, 'Hipertrofia Muscular '),
+        (2, 'Perda de Peso '),
+        (3, 'Definição Muscular '),
+        (4, 'Ganho de Resistência'),
+        (5, 'Aumento de Força '),
+        (6, 'Saúde e Bem-estar '),
+        (7, 'Melhora da Mobilidade e Flexibilidade '),
+        (8, 'Reabilitação Física '),
+        (9, 'Condicionamento Esportivo'),
+    )
+    name = models.SmallIntegerField(choices=GOALS, blank=True, null=True)
