@@ -2,7 +2,6 @@ from django.contrib.auth import get_user_model, login
 from django.db.models import Q
 from django.template.loader import render_to_string
 from django.utils.translation import gettext_lazy as _
-import ipdb
 from knox.auth import TokenAuthentication
 from knox.models import AuthToken
 from rest_framework import status, viewsets
