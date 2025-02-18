@@ -6,7 +6,10 @@ from rest_framework import status
 
 
 class RegisterAPITest(APITestCase):
-    fixtures = ['apps/user/fixtures/user_fixture.json']
+    fixtures = [
+        'apps/user/fixtures/goal_fixture.json',
+        'apps/user/fixtures/user_fixture.json'
+    ]
     data = {
         "first_name": "wedley",
         "last_name": "Doe",
@@ -23,7 +26,7 @@ class RegisterAPITest(APITestCase):
             content_type='application/json'
         )
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(self.User.objects.count(), 11)
+        self.assertEqual(self.User.objects.count(), 12)
         self.assertEqual(response.data['user']['email'], self.data['email'])
 
     def test_create_user_error(self):
@@ -38,7 +41,10 @@ class RegisterAPITest(APITestCase):
 
 
 class LoginAPITest(APITestCase):
-    fixtures = ['apps/user/fixtures/login_fixture.json']
+    fixtures = [
+        'apps/user/fixtures/goal_fixture.json',
+        'apps/user/fixtures/user_fixture.json'
+    ]
 
     def test_login_success(self):
         data = {"email": "fulano@company.com", "password": "password123", }

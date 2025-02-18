@@ -2,6 +2,7 @@ from django.contrib.auth import get_user_model, login
 from django.db.models import Q
 from django.template.loader import render_to_string
 from django.utils.translation import gettext_lazy as _
+import ipdb
 from knox.auth import TokenAuthentication
 from knox.models import AuthToken
 from rest_framework import status, viewsets
@@ -29,9 +30,10 @@ class RegisterAPIView(CreateAPIView):
     serializer_class = RegisterSerializer
     permission_classes = (AllowAny,)
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request):
         serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
+        if not serializer.is_valid():
+            return Response({'error': 'Invalid fields.'}, status=status.HTTP_400_BAD_REQUEST)
         user = serializer.save()
         token_object, token = AuthToken.objects.create(user)
         email_body = render_to_string('emails/welcome.txt', {'user': user})

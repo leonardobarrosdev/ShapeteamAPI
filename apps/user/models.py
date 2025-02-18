@@ -69,6 +69,21 @@ class UserManager(BaseUserManager):
         return self.create_user(email, password, **extra_fields)
 
 
+class Goal(models.Model):
+    GOALS = (
+        (1, 'Hipertrofia Muscular '),
+        (2, 'Perda de Peso '),
+        (3, 'Definição Muscular '),
+        (4, 'Ganho de Resistência'),
+        (5, 'Aumento de Força '),
+        (6, 'Saúde e Bem-estar '),
+        (7, 'Melhora da Mobilidade e Flexibilidade '),
+        (8, 'Reabilitação Física '),
+        (9, 'Condicionamento Esportivo'),
+    )
+    name = models.SmallIntegerField(choices=GOALS, blank=True, null=True)
+
+
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     GENDERS = ((1, 'male'), (2, 'female'), (3, 'other'))
     LEVELS = ((1, 'basic'), (2, 'medium'), (3, 'advanced'))
@@ -82,7 +97,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     weight = models.FloatField(blank=True, null=True)
     date_birth = models.DateField(blank=True, null=True)
     level = models.SmallIntegerField(choices=LEVELS, default=1)
-    goal = models.ManyToManyField('Goal')
+    goal = models.ManyToManyField(Goal)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
     date_joined = models.DateTimeField(default=timezone.now)
@@ -136,18 +151,3 @@ class Address(models.Model):
 
     def __str__(self):
         return f'{self.city}, {self.state}, {self.country}'
-
-
-class Goal(models.Model):
-    GOALS = (
-        (1, 'Hipertrofia Muscular '),
-        (2, 'Perda de Peso '),
-        (3, 'Definição Muscular '),
-        (4, 'Ganho de Resistência'),
-        (5, 'Aumento de Força '),
-        (6, 'Saúde e Bem-estar '),
-        (7, 'Melhora da Mobilidade e Flexibilidade '),
-        (8, 'Reabilitação Física '),
-        (9, 'Condicionamento Esportivo'),
-    )
-    name = models.SmallIntegerField(choices=GOALS, blank=True, null=True)
