@@ -11,9 +11,10 @@ from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.parsers import MultiPartParser, JSONParser
-from knox import views as knox_views
+from knox.views import LoginView as KnoxLoginView
 from .serializers import *
 from .utils import Util
+from .serializers import AuthTokenSerializer
 
 
 User = get_user_model()
@@ -48,17 +49,16 @@ class RegisterAPIView(CreateAPIView):
         }, status=status.HTTP_201_CREATED)
 
 
-class LoginAPIView(knox_views.LoginView):
+class LoginAPIView(KnoxLoginView):
     authentication_classes = [CsrfExemptSessionAuthentication]
-    serializer_class = LoginSerializer
     permission_classes = (AllowAny,)
 
-    def post(self, request, *args, **kwargs):
-        serializer = self.serializer_class(data=request.data)
+    def post(self, request, format=None):
+        serializer = AuthTokenSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data['user']
         login(request, user)
-        response = super().post(request, *args, **kwargs)
+        response = super(LoginAPIView, self).post(request, format=None)
         user_serializer = ProfileSerializer(user)
         response.data['user'] = user_serializer.data
         return response
