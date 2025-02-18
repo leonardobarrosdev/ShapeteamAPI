@@ -1,2 +1,5 @@
+django-coverage==1.2.4
 ipdb==0.13.13
-django-coverage
+pytest==8.3.4
+pytest-asyncio==0.25.3
+pytest-django==4.10.0
