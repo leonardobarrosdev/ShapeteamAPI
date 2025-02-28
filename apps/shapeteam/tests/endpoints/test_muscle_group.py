@@ -1,10 +1,8 @@
-import json
-
 from rest_framework.test import APITestCase
+from django.contrib.auth import get_user_model
 from django.urls import reverse
 from rest_framework import status
 from knox.models import AuthToken
-from apps.shapeteam.serializers import *
 
 
 PATH = 'fixtures/shapeteam'
@@ -18,7 +16,8 @@ class MuscleGroupAPITest(APITestCase):
 
     def setUp(self):
         self.user = get_user_model().objects.get(pk=2)
-        self.client.force_authenticate(user=self.user)
+        _, token = AuthToken.objects.create(self.user)
+        self.client.credentials(HTTP_AUTHORIZATION=f'Token {token}')
 
     def test_list_name_exercises_success(self):
         response = self.client.get(reverse('muscle-group-list'))
