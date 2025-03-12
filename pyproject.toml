@@ -1,0 +1,28 @@
+[project]
+name = "shapeteamapi"
+version = "0.1.0"
+description = "API of fitnes social media"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "channels>=4.2.0",
+    "channels-redis>=4.2.1",
+    "cloudinary>=1.42.2",
+    "daphne>=4.1.2",
+    "dj-database-url>=2.3.0",
+    "django==5.1.7",
+    "django-cors-headers>=4.7.0",
+    "django-environ>=0.12.0",
+    "django-rest-knox>=5.0.2",
+    "djangorestframework>=3.15.2",
+    "pillow>=11.1.0",
+    "psycopg2>=2.9.10",
+    "redis>=5.2.1",
+    "whitenoise>=6.9.0",
+]
+
+[dependency-groups]
+dev = [
+    "django-coverage==1.2.4",
+    "ipdb==0.13.13",
+]
