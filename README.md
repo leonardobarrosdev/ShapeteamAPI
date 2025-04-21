@@ -5,34 +5,17 @@ The ShapeTeam project consists of developing a social network platform aimed at 
 ## 🖥️ **Technologies Usedes**
 
 - **Python3.11**: Language.
-- **Django Rest Framework**: To create a API.
+- **Django Rest Framework**: To create the API.
 - **PostgreSQL**: Database.
+- **Redis**: Database NoSQL.
+- **Knox**: Authentify.
 
-## 📁 **Diretorie Structure**
-
-```
-core/               # The core of the system
-    /asgi.py
-    /settings.py    # Settings
-    /urls.py
-    /wsgi
-api/
-    /chat/
-        # files of app chat
-    /shapeteam
-        # files of app shapeteam
-    /user/
-        # files of app user
-.coveragerc        # Test Coverage
-manage.py          # Manage from system
-requirements.txt   # Requirements
-```
 
 ## 🚀 **How runing local project**
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/leonardobarrosdev/Annabela-website.git
+   git clone https://github.com/leonardobarrosdev/ShapeteamAPI
    ```
 
 2. **Navigate to the project folder:**
@@ -40,20 +23,17 @@ requirements.txt   # Requirements
    cd ShapeteamAPI
    ```
 
-
-3. **Virtual enviroment**:
-In order for you to have a development environment that is as conducive as possible and not clutter your machine with many dependencies that you probably won't use in another project, it is important to establish a development environment for each project. One of the most used environments for developing in Django is Virtualenv and those who are already familiar with Docker can use it too.
-[Virtualenv][https://virtualenv.pypa.io/en/latest/]
-[Docker - Django][https://docs.docker.com/samples/django/]
-
+3. **Virtual environment**:
+For managing Python dependencies and creating isolated environments, we use `uv`, a fast Python package installer and resolver written in Rust. It provides better performance and reliability compared to traditional tools.
+[uv documentation][https://github.com/astral-sh/uv]
 
 4. **Install requirements:**
    ```bash
-   pip install -r requirements.txt
+   uv install
+   source .venv/bin/activate
    ```
 
 5. **Gerenerate a `.env` local based in .env.example**
-
 
 7. **Sicronize the database**:
    ```bash
@@ -68,7 +48,7 @@ In order for you to have a development environment that is as conducive as possi
 9. You can **populate the database**:
    ```bash
    python manage.py loaddata shapeteam/fixtures/*.json
-   ```
+   ```]
    Obs: Not realize this comand (9) for production.
 
 10. **Run the development server**:
@@ -79,10 +59,12 @@ In order for you to have a development environment that is as conducive as possi
 
 ## 🌟 **Funtionalities**
 
-- **Users to Create Profiles**
+- **User authentication**
 - **Find workout partners with similar interests**
 - **Schedule workout sessions**
+- **Invite partner for workout sessions**
 - **share experiences**
+- **Chat one to one**
 
 ## 🔗 **Deploy**
 
