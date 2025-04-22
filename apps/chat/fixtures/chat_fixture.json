@@ -1,30 +1,74 @@
-[{
-    "model": "chat.chat",
-    "pk": 1,
-    "fields": {
-        "connection": 1,
-        "user": 4,
-        "message": "Hello man!",
-        "created": "2024-09-17T02:29:56.224Z"
+[
+    {
+        "model": "chat.chat",
+        "pk": 1,
+        "fields": {
+            "participant": 1,
+            "messages": [5, 6, 7, 8, 9]
+        }
+    },
+    {
+        "model": "chat.chat",
+        "pk": 2,
+        "fields": {
+            "participant": 2,
+            "messages": [3, 4]
+        }
+    },
+    {
+        "model": "chat.chat",
+        "pk": 3,
+        "fields": {
+            "participant": 3,
+            "messages": [5, 6]
+        }
+    },
+    {
+        "model": "chat.chat",
+        "pk": 4,
+        "fields": {
+            "participant": 4,
+            "messages": [7, 8]
+        }
+    },
+    {
+        "model": "chat.chat",
+        "pk": 5,
+        "fields": {
+            "participant": 5,
+            "messages": [9, 10]
+        }
+    },
+    {
+        "model": "chat.chat",
+        "pk": 6,
+        "fields": {
+            "participant": 6,
+            "messages": [11, 12]
+        }
+    },
+    {
+        "model": "chat.chat",
+        "pk": 7,
+        "fields": {
+            "participant": 7,
+            "messages": [13, 14]
+        }
+    },
+    {
+        "model": "chat.chat",
+        "pk": 8,
+        "fields": {
+            "participant": 8,
+            "messages": [15, 16]
+        }
+    },
+    {
+        "model": "chat.chat",
+        "pk": 9,
+        "fields": {
+            "participant": 9,
+            "messages": [17, 18]
+        }
     }
-},
-{
-    "model": "chat.chat",
-    "pk": 2,
-    "fields": {
-        "connection": 1,
-        "user": 5,
-        "message": "Hi bro. How are you?",
-        "created": "2024-09-17T02:29:56.224Z"
-    }
-},
-{
-    "model": "chat.chat",
-    "pk": 3,
-    "fields": {
-        "connection": 3,
-        "user": 4,
-        "message": "Nice...",
-        "created": "2024-09-17T02:29:56.224Z"
-    }
-}]
+]

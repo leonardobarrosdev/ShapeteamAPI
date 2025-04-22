@@ -1,20 +1,14 @@
 from rest_framework import serializers
-from .models import Chat
+from .models import Chat, Message
 
 
 class ChatSerializer(serializers.ModelSerializer):
-	# is_me = serializers.SerializerMethodField()
-
 	class Meta:
 		model = Chat
-		fields = [
-			'id',
-			# 'is_me',
-            'user',
-			'text',
-			'created'
-		]
+		fields = '__all__'
+	
 
-	def get_is_me(self, obj):
-		return self.context['user'] == obj.user
-
+class MessageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Message
+        fields = '__all__'
