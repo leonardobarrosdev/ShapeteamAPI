@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import date
 import uuid
 from django.core.files.uploadedfile import UploadedFile
 from django.db import models
@@ -115,8 +115,11 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     def get_age(self):
         if self.date_birth:
-            current_year = int(datetime.strftime(datetime.now(), '%Y'))
-            return current_year - self.date_birth.year
+            today = date.today()
+            age = today.year - self.date_birth.year - (
+                (today.month, today.day) < (self.date_birth.month, self.date_birth.day)
+            )
+            return age
         return 0
 
     def get_imc(self):

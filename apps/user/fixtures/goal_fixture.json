@@ -61,5 +61,12 @@
         "fields": {
             "name": 9
         }
+    },
+    {
+        "model": "user.goal",
+        "pk": 10,
+        "fields": {
+            "name": 10
+        }
     }
 ]
