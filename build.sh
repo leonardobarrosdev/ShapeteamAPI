@@ -8,3 +8,6 @@ pip install -r requirements.txt
 
 # Apply any outstanding database migrations
 python manage.py migrate --run-syncdb
+
+# Collect static files
+python manage.py collectstatic --noinput
