@@ -1,0 +1,7 @@
+from .test_compatibility import UserCompatibilityAPITest
+from .test_day_training import DayTrainingAPITest
+from .test_exercise import ExerciseAPITest
+from .test_exercise_ranking import ExerciseRankingAPITest
+from .test_muscle_group import MuscleGroupAPITest
+from .test_partner import TrainingPartnersAPITest
+from .test_week_routine import WeekRoutineAPITest
