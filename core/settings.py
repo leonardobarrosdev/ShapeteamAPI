@@ -36,6 +36,10 @@ ALLOWED_HOSTS = env('ALLOWED_HOSTS').split(' ')
 
 # Application definition
 INSTALLED_APPS = [
+    'daphne',
+    'channels',
+    'channels_redis',
+    # Django
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -47,7 +51,6 @@ INSTALLED_APPS = [
     'corsheaders',
     'knox',
     'cloudinary',
-    'channels',
     # Apps
     'apps.user',
     'apps.shapeteam',
@@ -85,7 +88,8 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'core.wsgi.application'
+# WSGI_APPLICATION = 'core.wsgi.application'
+ASGI_APPLICATION = "core.asgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
@@ -213,17 +217,23 @@ cloudinary.config(
 )
 
 # Channels
-ASGI_APPLICATION = "core.asgi.application"
+if DEBUG:
+    CHANNEL_CONFIG = {
+        "hosts": [("127.0.0.1", 6379)],
+    }
+else:
+    CHANNEL_CONFIG = {
+        "hosts": [(
+            env('REDIS_HOST'),
+            env.int('REDIS_PORT')
+        )],
+        "password": env('REDIS_PASSWORD'),
+        "ssl": env.bool('REDIS_SSL', default=False),
+    }
+
 CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
-        "CONFIG": {
-            "hosts": [(
-                env('REDIS_HOST'),
-                env.int('REDIS_PORT')
-            )],
-            "password": env('REDIS_PASSWORD'),
-            "ssl": env.bool('REDIS_SSL', default=False),
-        },
+        "CONFIG": CHANNEL_CONFIG,
     },
 }
