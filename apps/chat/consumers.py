@@ -1,8 +1,7 @@
 import json
 from django.contrib.auth import get_user_model
 from channels.generic.websocket import AsyncWebsocketConsumer
-from asgiref.sync import async_to_sync
-import logging, ipdb
+import logging
 
 logger = logging.getLogger(__name__)
 

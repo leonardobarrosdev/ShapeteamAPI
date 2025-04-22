@@ -1,6 +1,5 @@
 from django.contrib.auth import get_user_model
 from channels.testing import WebsocketCommunicator, ChannelsLiveServerTestCase
-import ipdb
 from knox.models import AuthToken
 from apps.shapeteam.models import Connection
 from apps.chat.models import Message, Chat
